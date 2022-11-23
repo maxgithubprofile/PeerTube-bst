@@ -18,6 +18,7 @@ export class PeerTubeEmbed {
 	details : VideoDetails
 	api: PeerTubeEmbedApi = null
 	statusInterval : any
+	listenAudioInterval : any
 	lightclbk : Function
 	pathfunction: any
 	config: HTMLServerConfig
@@ -227,6 +228,13 @@ export class PeerTubeEmbed {
 		}
 	}
 
+	private stopListening(){
+		if(this.listenAudioInterval){
+			clearInterval(this.listenAudioInterval)
+			this.listenAudioInterval = null
+		}
+	}
+
 	private async waitStatus(statuses : Array<Number>){
 		return this.checkInfo(function(details : any){
 
@@ -431,6 +439,113 @@ export class PeerTubeEmbed {
 		playerElement.className = 'video-js vjs-peertube-skin'
 		playerElement.setAttribute('playsinline', 'true')
 
+		// TODO: check audio file
+		if (true) {
+
+			// Start an audio contect to listen to audio
+			var context = new AudioContext();
+			var src = context.createMediaElementSource(playerElement);
+			var analyser = context.createAnalyser();
+			src.connect(analyser);
+			analyser.connect(context.destination);
+			analyser.fftSize = 1024;
+			var bufferLength = analyser.frequencyBinCount;
+			var dataArray = new Uint8Array(bufferLength);
+
+			// Create a canvas to show the audio visualization
+			const audioVisu = document.createElement('canvas')
+			audioVisu.className = 'vjs-audio-visualization';
+			var ctx = audioVisu.getContext('2d');
+			var canvasAdded = false;
+
+			// Setup events to know when mouse is over the player
+			this.playerHTML.getWrapperElement().onmouseover = function() {
+				audioVisu['mouseOver'] = true;
+			}
+			this.playerHTML.getWrapperElement().onmouseout = function() {
+				audioVisu['mouseOver'] = false;
+			}
+
+			this.stopListening();
+			// Start listening to audio
+			this.listenAudioInterval = setInterval(() => {
+
+				const wrapperSize = this.playerHTML.getWrapperSize();
+
+				if (!ctx || !wrapperSize)
+					return
+
+				// Add the canvas to the video player DOM if needed
+				if (!canvasAdded && playerElement.parentElement) {
+					this.playerHTML.addElementToDOM(audioVisu);
+					canvasAdded = true;
+				}
+				if (!canvasAdded)
+					return;
+
+				audioVisu.width = wrapperSize.width;
+				audioVisu.height = wrapperSize.height;
+				audioVisu.style.width = audioVisu.width + 'px';
+				audioVisu.style.height = audioVisu.height + 'px';
+				var WIDTH = audioVisu.width;
+				var HEIGHT = audioVisu.height;
+
+				// Show / hide the visualization if needed
+				const noSound = (dataArray.reduce((partialSum, value) => partialSum + value, 0) <= 0)
+				if (noSound || audioVisu['mouseOver']) {
+					setTimeout(() => {
+						if (audioVisu['mouseOver'])
+							audioVisu.style.visibility = 'hidden';
+					}, 300);
+					audioVisu.classList.add('hide-visualization');
+				} else {
+					audioVisu.style.visibility = 'visible';
+					audioVisu.classList.remove('hide-visualization');
+				}
+
+				// Bar visualization
+				analyser.getByteFrequencyData(dataArray);
+				ctx.fillStyle = "#011621";
+				ctx.fillRect(0, 0, WIDTH, HEIGHT);
+				const barWidth = (WIDTH / bufferLength) * 2.5;
+				let barHeight;
+				let x = 0;
+				for (let i = 0; i < bufferLength; i++) {
+					barHeight = dataArray[i];
+					if (HEIGHT > 400)
+						barHeight = barHeight * 3;
+					else if (HEIGHT > 300)
+						barHeight = barHeight * 2;
+					ctx.fillStyle = `rgb(0, 166, 255)`;
+					ctx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
+					x += barWidth + 1;
+				}
+				ctx.stroke();
+
+				// Oscilloscope visualization
+				/*
+				analyser.getByteTimeDomainData(dataArray);
+				var segmentWidth = WIDTH / analyser.frequencyBinCount;
+				ctx.fillStyle = "#011621";
+				ctx.strokeStyle = "#00a6ff";
+				ctx.lineWidth = 2;
+				ctx.fillRect(0, 0, WIDTH, HEIGHT);
+				ctx.beginPath();
+				ctx.moveTo(-100, HEIGHT / 2);
+				for (let i = 1; i < analyser.frequencyBinCount; i += 1) {
+					let x = i * segmentWidth;
+					let v = dataArray[i] / 128.0;
+					let y = (v * HEIGHT) / 2;
+					ctx.lineTo(x, y);
+				}
+				ctx.lineTo(WIDTH + 100, HEIGHT / 2);
+				ctx.stroke();
+				*/
+
+			}, 10);
+
+		}
+
 		this.playerHTML.setPlayerElement(playerElement)
 		this.playerHTML.addPlayerElementToDOM()
 
@@ -452,6 +567,8 @@ export class PeerTubeEmbed {
 	destroy(){
 
 		this.stopWaiting()
+
+		this.stopListening()
 
 		if (this.player){
 			try{this.player.dispose()} catch(e){}

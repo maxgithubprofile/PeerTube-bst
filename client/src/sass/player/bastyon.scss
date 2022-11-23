@@ -179,6 +179,8 @@
         width: 100%;
         background : #000;
         background-size: 100% auto;
+        background-repeat: no-repeat;
+        background-position: center;
         opacity: 0;
         -webkit-transition: opacity .3s, outline .3s, opacity .3s;
         -moz-transition: opacity .3s, outline .3s, opacity .3s;
@@ -452,6 +454,18 @@
 
 }
 
+.vjs-audio-visualization {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: fadeIn 0.3s linear;
+
+    &:hover,
+    &.hide-visualization {
+        animation: fadeOut 0.3s linear forwards;
+    }
+}
+
 html.mobileview{
     
     /*#vjs-forward-button, #vjs-rewind-button {
@@ -565,4 +579,13 @@ html.mobileview{
             display: none!important;
         }
     }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }

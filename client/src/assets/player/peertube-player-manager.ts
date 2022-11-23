@@ -228,6 +228,17 @@ export class PeertubePlayerManager {
       videojsOptionsBuilder.getVideojsOptions(this.alreadyPlayed)
     )*/
 
+    // If video is audio
+    // TODO: Add audio check
+    if (videojsOptions && videojsOptions.controlBar && videojsOptions.controlBar.children) {
+      videojsOptions.controlBar.children['settingsButton'].entries = [];
+      videojsOptions.controlBar.fullscreenToggle = false;
+      videojsOptions.inactivityTimeout = 0;
+      // Mouse events
+      videojsOptions.userActions = videojsOptions.userActions || {}
+      videojsOptions.userActions.doubleClick = false;
+    }
+
     const self = this
     return new Promise(res => {
       videojs(options.common.playerElement, videojsOptions, function (this: videojs.Player) {
