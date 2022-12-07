@@ -493,37 +493,49 @@ export class PeerTubeEmbed {
 				var WIDTH = audioVisu.width;
 				var HEIGHT = audioVisu.height;
 
+				analyser.getByteFrequencyData(dataArray);
+
 				// Show / hide the visualization if needed
 				const noSound = (dataArray.reduce((partialSum, value) => partialSum + value, 0) <= 0)
 				if (noSound || audioVisu['mouseOver']) {
+					const thumbnailUrl = (videoDetails.from ? 'https://' + videoDetails.from : videoDetails.host) + videoDetails.previewPath;
+					audioVisu.style.backgroundImage = 'url(' + thumbnailUrl + ')';
+					audioVisu.style.backgroundPosition = 'center';
+					audioVisu.style.backgroundRepeat = 'no-repeat';
+					audioVisu.style.backgroundSize = 'cover';
+					/*
 					setTimeout(() => {
 						if (audioVisu['mouseOver'])
 							audioVisu.style.visibility = 'hidden';
 					}, 300);
 					audioVisu.classList.add('hide-visualization');
+					*/
 				} else {
+					/*
 					audioVisu.style.visibility = 'visible';
 					audioVisu.classList.remove('hide-visualization');
-				}
+					*/
 
-				// Bar visualization
-				analyser.getByteFrequencyData(dataArray);
-				ctx.fillStyle = "#011621";
-				ctx.fillRect(0, 0, WIDTH, HEIGHT);
-				const barWidth = (WIDTH / bufferLength) * 2.5;
-				let barHeight;
-				let x = 0;
-				for (let i = 0; i < bufferLength; i++) {
-					barHeight = dataArray[i];
-					if (HEIGHT > 400)
-						barHeight = barHeight * 3;
-					else if (HEIGHT > 300)
-						barHeight = barHeight * 2;
-					ctx.fillStyle = `rgb(0, 166, 255)`;
-					ctx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
-					x += barWidth + 1;
+					// Bar visualization
+					// analyser.getByteFrequencyData(dataArray);
+					ctx.fillStyle = "#011621";
+					ctx.fillRect(0, 0, WIDTH, HEIGHT);
+					const barWidth = (WIDTH / bufferLength) * 2.5;
+					let barHeight;
+					let x = 0;
+					for (let i = 0; i < bufferLength; i++) {
+						barHeight = dataArray[i];
+						if (HEIGHT > 400)
+							barHeight = barHeight * 3;
+						else if (HEIGHT > 300)
+							barHeight = barHeight * 2;
+						ctx.fillStyle = `rgb(0, 166, 255)`;
+						ctx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
+						x += barWidth + 1;
+					}
+					ctx.stroke();
+
 				}
-				ctx.stroke();
 
 				// Oscilloscope visualization
 				/*
