@@ -229,8 +229,7 @@ export class PeertubePlayerManager {
     )*/
 
     // If video is audio
-    // TODO: Add audio check
-    if (videojsOptions && videojsOptions.controlBar && videojsOptions.controlBar.children) {
+    if (options && options.isAudio && videojsOptions && videojsOptions.controlBar && videojsOptions.controlBar.children) {
       videojsOptions.controlBar.children['settingsButton'].entries = [];
       videojsOptions.controlBar.fullscreenToggle = false;
       videojsOptions.inactivityTimeout = 0;

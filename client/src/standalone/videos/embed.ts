@@ -279,7 +279,7 @@ export class PeerTubeEmbed {
 	}
 
 	private async buildVideoPlayer(videoDetails: VideoDetails, host : any, parameters: any, clbk : any) {
-		const alreadyHadPlayer = this.resetPlayerElement()
+		const alreadyHadPlayer = this.resetPlayerElement(videoDetails)
 
 		this.playerHTML.removeErrorBlock()
 		
@@ -351,6 +351,9 @@ export class PeerTubeEmbed {
 				size: parseInt(parameters.localVideo.video.name)
 			}]
 		})
+
+		if (videoDetails && videoDetails.isAudio == true)
+			options.isAudio = true;
 
 		this.player = await PlayerManager.initialize(this.playerManagerOptions.getMode(), options, (player: videojs.Player) => {
 			this.player = player
@@ -427,7 +430,7 @@ export class PeerTubeEmbed {
 		}
 	}
 
-	private resetPlayerElement() {
+	private resetPlayerElement(videoDetails: VideoDetails) {
 		let alreadyHadPlayer = false
 
 		if (this.player) {
@@ -439,8 +442,8 @@ export class PeerTubeEmbed {
 		playerElement.className = 'video-js vjs-peertube-skin'
 		playerElement.setAttribute('playsinline', 'true')
 
-		// TODO: check audio file
-		if (true) {
+		// Check audio file
+		if (videoDetails.isAudio) {
 
 			// Start an audio contect to listen to audio
 			var context = new AudioContext();
