@@ -256,6 +256,9 @@ export class PeertubePlayerManager {
           }
         }
 
+        if (options && options.isAudio)
+          player.addClass('vjs-is-audio')
+
         player.one('error', () => handleError())
 
         player.one('play', () => {
