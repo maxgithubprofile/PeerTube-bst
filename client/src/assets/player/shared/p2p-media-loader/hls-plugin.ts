@@ -427,8 +427,6 @@ class Html5Hlsjs {
     this.hls.on(Hlsjs.Events.ERROR, (event, data) => this._onError(event, data))
     this.hls.on(Hlsjs.Events.MANIFEST_PARSED, (event, data) => this._onMetaData(event, data))
     this.hls.on(Hlsjs.Events.LEVEL_LOADED, (event, data) => {
-      logger.addPlaybackError('Level Loaded', {});
-
       // The DVR plugin will auto seek to "live edge" on start up
       if (this.hlsjsConfig.liveSyncDuration) {
         this.edgeMargin = this.hlsjsConfig.liveSyncDuration
