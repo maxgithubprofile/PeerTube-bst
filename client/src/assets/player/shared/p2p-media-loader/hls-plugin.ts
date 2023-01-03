@@ -8,6 +8,8 @@ import { HlsjsConfigHandlerOptions, PeerTubeResolution, VideoJSTechHLS } from '.
 import CapLevelController from './cap-level-controller'
 import AbrController from './abr-controler'
 
+const ERROR_STACK_MAX_LENGTH = 10000
+
 type ErrorCounts = {
   [ type: string ]: number
 }
@@ -71,7 +73,7 @@ function hlsjsConfigHandler (this: videojs.Player, options: HlsjsConfigHandlerOp
     player.srOptions_.hlsjsConfig = options.hlsjsConfig
   }
 
-  
+
 
   if (options.levelLabelHandler && !player.srOptions_.levelLabelHandler) {
     player.srOptions_.levelLabelHandler = options.levelLabelHandler
@@ -89,6 +91,7 @@ class Html5Hlsjs {
 
   private readonly videoElement: HTMLVideoElement
   private readonly errorCounts: ErrorCounts = {}
+  private readonly errorStack: { message: string, code?: number }[] = []
   private readonly player: videojs.Player
   private readonly tech: videojs.Tech
   private readonly source: videojs.Tech.SourceObject
@@ -263,7 +266,7 @@ class Html5Hlsjs {
   private _handleNetworkError (error: any) {
 
     if (navigator.onLine === false) return
-    
+
     if (this.errorCounts[Hlsjs.ErrorTypes.NETWORK_ERROR] <= this.maxNetworkErrorRecovery) {
       logger.info('trying to recover network error')
 
@@ -288,6 +291,11 @@ class Html5Hlsjs {
     const error: { message: string, code?: number } = {
       message: `HLS.js error: ${data.type} - fatal: ${data.fatal} - ${data.details}`
     }
+
+    if (this.errorStack.length > ERROR_STACK_MAX_LENGTH) {
+      this.errorStack.shift()
+    }
+    this.errorStack.push(error);
 
     // increment/set error count
     if (this.errorCounts[data.type]) this.errorCounts[data.type] += 1
@@ -367,6 +375,10 @@ class Html5Hlsjs {
     return result
   }
 
+  public sendLogsCache () {
+    debugger;
+  }
+
   private _onMetaData (_event: any, data: ManifestParsedData) {
     // This could arrive before 'loadedqualitydata' handlers is registered, remember it so we can raise it later
     this.metadata = data
@@ -400,11 +412,11 @@ class Html5Hlsjs {
 
     //if(!data.details.live && data.details.totalduration      )
 
-    //this.hlsjsConfig.debug = true
+    // this.hlsjsConfig.debug = true
 
     this.hls = new Hlsjs(this.hlsjsConfig)
 
-    
+
 
     //@ts-ignore
     this.player.hls = this.hls;
@@ -415,6 +427,8 @@ class Html5Hlsjs {
     this.hls.on(Hlsjs.Events.ERROR, (event, data) => this._onError(event, data))
     this.hls.on(Hlsjs.Events.MANIFEST_PARSED, (event, data) => this._onMetaData(event, data))
     this.hls.on(Hlsjs.Events.LEVEL_LOADED, (event, data) => {
+      logger.addPlaybackError('Level Loaded', {});
+
       // The DVR plugin will auto seek to "live edge" on start up
       if (this.hlsjsConfig.liveSyncDuration) {
         this.edgeMargin = this.hlsjsConfig.liveSyncDuration
