@@ -122,6 +122,9 @@ export class ManagerOptionsBuilder {
   }
 
   getContextMenuOptions (player: videojs.Player, commonOptions: CommonOptions) {
+    const videoUUID = commonOptions.videoUUID
+    const serverUrl = commonOptions.serverUrl
+
     const content = () => {
       const isLoopEnabled = player.options_['loop']
 
@@ -135,9 +138,9 @@ export class ManagerOptionsBuilder {
         },
         {
           // icon: 'repeat',
-          label: 'Send video playback information to developer team',
+          label: 'Send video playback information to devs',
           listener: function (this: videojs.Player) {
-            (this as any).tech_.hlsProvider.sendLogsCache();
+            (this as any).tech_.hlsProvider.sendLogsCache(videoUUID, serverUrl);
           }
         },
         // {

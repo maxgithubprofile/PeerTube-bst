@@ -3,12 +3,10 @@
 
 import Hlsjs, { ErrorData, HlsConfig, Level, LevelSwitchingData, ManifestParsedData } from 'hls.js'
 import videojs from 'video.js'
-import { logger } from '@root-helpers/logger'
+import { logger, Logger } from '@root-helpers/logger'
 import { HlsjsConfigHandlerOptions, PeerTubeResolution, VideoJSTechHLS } from '../../types'
 import CapLevelController from './cap-level-controller'
 import AbrController from './abr-controler'
-
-const ERROR_STACK_MAX_LENGTH = 10000
 
 type ErrorCounts = {
   [ type: string ]: number
@@ -19,6 +17,8 @@ type Metadata = {
 }
 
 type HookFn = (player: videojs.Player, hljs: Hlsjs) => void
+
+const VIDEO_HLS_ERROR = 'HLS Error'
 
 const registerSourceHandler = function (vjs: typeof videojs) {
   if (!Hlsjs.isSupported()) {
@@ -91,7 +91,6 @@ class Html5Hlsjs {
 
   private readonly videoElement: HTMLVideoElement
   private readonly errorCounts: ErrorCounts = {}
-  private readonly errorStack: { message: string, code?: number }[] = []
   private readonly player: videojs.Player
   private readonly tech: videojs.Tech
   private readonly source: videojs.Tech.SourceObject
@@ -101,6 +100,8 @@ class Html5Hlsjs {
 
   private hls: Hlsjs
   private hlsjsConfig: Partial<HlsConfig & { cueHandler: any }> = null
+
+  private videoLogger: Logger
 
   private _duration: number = null
   private metadata: Metadata = null
@@ -122,9 +123,7 @@ class Html5Hlsjs {
     this.videoElement = tech.el() as HTMLVideoElement
     this.player = vjs((tech.options_ as any).playerId)
 
-    /*this.player.on('seeking', (e : any) => {
-      console.log("E", e)
-    })*/
+    this.videoLogger = new Logger(true)
 
     this.videoElement.addEventListener('error', event => {
       let errorTxt: string
@@ -188,10 +187,13 @@ class Html5Hlsjs {
 
     // FIXME: https://github.com/video-dev/hls.js/issues/4092
     const untypedHLS = this.hls as any
+
     untypedHLS.log = untypedHLS.warn = () => {
       // empty
     }
 
+
+    this.videoLogger.destroyLogs()
 
     this.hls.destroy()
   }
@@ -292,10 +294,9 @@ class Html5Hlsjs {
       message: `HLS.js error: ${data.type} - fatal: ${data.fatal} - ${data.details}`
     }
 
-    if (this.errorStack.length > ERROR_STACK_MAX_LENGTH) {
-      this.errorStack.shift()
-    }
-    this.errorStack.push(error);
+    this.videoLogger.log(error.message, {
+      id: VIDEO_HLS_ERROR
+    })
 
     // increment/set error count
     if (this.errorCounts[data.type]) this.errorCounts[data.type] += 1
@@ -375,8 +376,8 @@ class Html5Hlsjs {
     return result
   }
 
-  public sendLogsCache () {
-    debugger;
+  public sendLogsCache (videoId: String, serverUrl: String) {
+    this.videoLogger.returnLog(videoId, serverUrl)
   }
 
   private _onMetaData (_event: any, data: ManifestParsedData) {
@@ -412,7 +413,7 @@ class Html5Hlsjs {
 
     //if(!data.details.live && data.details.totalduration      )
 
-    // this.hlsjsConfig.debug = true
+    this.hlsjsConfig.debug = this.videoLogger
 
     this.hls = new Hlsjs(this.hlsjsConfig)
 
