@@ -191,6 +191,11 @@
         &.active{
             opacity: 1;
         }
+
+        &.vjs-is-audio {
+            background-position: center;
+            background-size: cover;
+        }
     }
 
     .vjs-time-tooltip {
@@ -451,21 +456,39 @@
         }
     }
 
+    &.vjs-is-audio {
+        height: 200px;
+        background: transparent;
+        video {
+            display: none;
+        }
+        .vjs-control-bar {
+            border-top-right-radius: 0 !important;
+            border-top-left-radius: 0 !important;
+            box-shadow: none;
+            // mix-blend-mode: difference;
+            background: rgba(rgb(66, 66, 66), 0.5);
+            color: white;
+        }
+        .vjs-overlay{
+            display: none !important;
+        }
+    }
 
+}
+
+.vjs-audio-wallpaper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-position: center;
+    background-size: cover;
 }
 
 .vjs-audio-visualization {
     position: absolute;
     top: 0;
-    left: 0;
-    // animation: fadeIn 0.3s linear;
-
-    /*
-    &:hover,
-    &.hide-visualization {
-        animation: fadeOut 0.3s linear forwards;
-    }
-    */
+    right: 0;
 }
 
 html.mobileview{
@@ -567,6 +590,16 @@ html.mobileview{
         .vjs-overlay{
             display: none!important;
         }
+
+        .vjs-is-audio {
+            .vjs-control-bar {
+                background: transparent;
+            }
+        }
+    }
+
+    .vjs-audio-visualization {
+        border-radius: 10px;
     }
 }
 

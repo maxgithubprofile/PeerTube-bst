@@ -187,6 +187,7 @@ export class PeertubePlayerManager {
     if (options && options.isAudio && videojsOptions && videojsOptions.controlBar && videojsOptions.controlBar.children) {
       videojsOptions.controlBar.children['settingsButton'].entries = [];
       videojsOptions.controlBar.fullscreenToggle = false;
+      videojsOptions.bigPlayButton = false;
       videojsOptions.inactivityTimeout = 0;
       // Mouse events
       videojsOptions.userActions = videojsOptions.userActions || {}

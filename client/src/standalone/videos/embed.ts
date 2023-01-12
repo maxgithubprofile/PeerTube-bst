@@ -145,6 +145,9 @@ export class PeerTubeEmbed {
 
 			videoDetails.host = host
 
+			if (videoDetails.isAudio)
+				parameters.light = false;
+			
 			if (parameters.light){
 
 				return this.buildVideoPlayerLight(videoDetails, async () => {
@@ -359,6 +362,14 @@ export class PeerTubeEmbed {
 			this.player = player
 		})
 
+		if (videoDetails && videoDetails.isAudio == true) {
+			this.player.play()?.then(() => {
+				this.player.pause();
+				if (this.player.muted())
+					this.player.muted(false);
+			});
+		}
+
 		this.player.on('customError', (event: any, data: any) => {
 			const message = data?.err?.message || ''
 			if (!message.includes('from xs param')) return
@@ -439,6 +450,7 @@ export class PeerTubeEmbed {
 
 	private resetPlayerElement(videoDetails: VideoDetails) {
 		let alreadyHadPlayer = false
+		var self = this;
 
 		if (this.player) {
 			this.player.dispose()
@@ -468,6 +480,17 @@ export class PeerTubeEmbed {
 			var ctx = audioVisu.getContext('2d');
 			var canvasAdded = false;
 
+			// Create a div to show the audio wallpaper
+			const audioWallpaper = document.createElement('div')
+			audioWallpaper.className = 'vjs-audio-wallpaper';
+			const thumbnailUrl = (videoDetails.from ? 'https://' + videoDetails.from : videoDetails.host) + videoDetails.previewPath;
+			audioWallpaper.style.backgroundImage = 'url(' + thumbnailUrl + ')';
+			const playerWrapperSize = this.playerHTML.getWrapperSize();
+			if (playerWrapperSize && playerWrapperSize.height) {
+				audioWallpaper.style.width = playerWrapperSize.height + 'px';
+				audioWallpaper.style.height = playerWrapperSize.height + 'px';
+			}
+
 			// Setup events to know when mouse is over the player
 			this.playerHTML.getWrapperElement().onmouseover = function() {
 				audioVisu['mouseOver'] = true;
@@ -475,26 +498,45 @@ export class PeerTubeEmbed {
 			this.playerHTML.getWrapperElement().onmouseout = function() {
 				audioVisu['mouseOver'] = false;
 			}
+			// Setup events when mouse is clicked over the player visualization and wallpaper
+			var togglePlayerPlay = function() {
+				if (self.player) {
+					if (self.player.paused())
+						self.player.play();
+					else
+						self.player.pause();
+				}
+			}
+			audioVisu.onclick = togglePlayerPlay;
+			audioWallpaper.onclick = togglePlayerPlay;
 
 			this.stopListening();
 			// Start listening to audio
 			this.listenAudioInterval = setInterval(() => {
+
+				const pipMiniElem = this.playerHTML.getWrapperElement().closest('.pipmini')
+				const pipModeElem = this.playerHTML.getWrapperElement().closest('.pipmode')
+				const isPip = (pipMiniElem || pipModeElem);
 
 				const wrapperSize = this.playerHTML.getWrapperSize();
 
 				if (!ctx || !wrapperSize)
 					return
 
+				audioWallpaper.style.width = ((isPip) ? 0 : wrapperSize.height) + 'px';
+				audioWallpaper.style.height = ((isPip) ? 0 : wrapperSize.height) + 'px';
+
 				// Add the canvas to the video player DOM if needed
 				if (!canvasAdded && playerElement.parentElement) {
 					this.playerHTML.addElementToDOM(audioVisu);
+					this.playerHTML.addElementToDOM(audioWallpaper);
 					canvasAdded = true;
 				}
 				if (!canvasAdded)
 					return;
 
-				audioVisu.width = wrapperSize.width;
-				audioVisu.height = wrapperSize.height;
+				audioVisu.height = (isPip) ? wrapperSize.height : wrapperSize.height - 63;
+				audioVisu.width = (isPip) ? wrapperSize.width : wrapperSize.width - audioVisu.height;
 				audioVisu.style.width = audioVisu.width + 'px';
 				audioVisu.style.height = audioVisu.height + 'px';
 				var WIDTH = audioVisu.width;
@@ -504,9 +546,9 @@ export class PeerTubeEmbed {
 
 				// Show / hide the visualization if needed
 				const noSound = (dataArray.reduce((partialSum, value) => partialSum + value, 0) <= 0)
-				if (noSound || audioVisu['mouseOver']) {
-					const thumbnailUrl = (videoDetails.from ? 'https://' + videoDetails.from : videoDetails.host) + videoDetails.previewPath;
-					audioVisu.style.backgroundImage = 'url(' + thumbnailUrl + ')';
+				if (noSound) {
+					// const thumbnailUrl = (videoDetails.from ? 'https://' + videoDetails.from : videoDetails.host) + videoDetails.previewPath;
+					// audioVisu.style.backgroundImage = 'url(' + thumbnailUrl + ')';
 					audioVisu.style.backgroundPosition = 'center';
 					audioVisu.style.backgroundRepeat = 'no-repeat';
 					audioVisu.style.backgroundSize = 'cover';
@@ -525,7 +567,7 @@ export class PeerTubeEmbed {
 
 					// Bar visualization
 					// analyser.getByteFrequencyData(dataArray);
-					ctx.fillStyle = "#011621";
+					ctx.fillStyle = "transparent";
 					ctx.fillRect(0, 0, WIDTH, HEIGHT);
 					const barWidth = (WIDTH / bufferLength) * 2.5;
 					let barHeight;
