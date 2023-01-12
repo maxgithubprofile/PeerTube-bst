@@ -147,6 +147,10 @@ export class PeerTubeEmbed {
 
 			if (videoDetails.isAudio)
 				parameters.light = false;
+
+			const pipMiniElem = this.playerHTML.getWrapperElement().closest('.pipmini')
+			const pipModeElem = this.playerHTML.getWrapperElement().closest('.pipmode')
+			parameters.isPip = (pipMiniElem != undefined || pipModeElem != undefined);
 			
 			if (parameters.light){
 
@@ -362,7 +366,7 @@ export class PeerTubeEmbed {
 			this.player = player
 		})
 
-		if (videoDetails && videoDetails.isAudio == true) {
+		if (videoDetails && videoDetails.isAudio == true && parameters.isPip != true) {
 			this.player.play()?.then(() => {
 				this.player.pause();
 				if (this.player.muted())
@@ -516,7 +520,7 @@ export class PeerTubeEmbed {
 
 				const pipMiniElem = this.playerHTML.getWrapperElement().closest('.pipmini')
 				const pipModeElem = this.playerHTML.getWrapperElement().closest('.pipmode')
-				const isPip = (pipMiniElem || pipModeElem);
+				const isPip = (pipMiniElem != undefined || pipModeElem != undefined);
 
 				const wrapperSize = this.playerHTML.getWrapperSize();
 
