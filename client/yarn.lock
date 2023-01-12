@@ -110,7 +110,7 @@
     "resolve" "^1.14.2"
     "semver" "^6.1.2"
 
-"@babel/helper-environment-visitor@^7.18.6", "@babel/helper-environment-visitor@^7.18.9":
+"@babel/helper-environment-visitor@^7.18.9":
   "integrity" "sha512-3r/aACDJ3fhQ/EVgFy0hpj8oHyHpQc+LPtJoY9SzTThAsStm4Ptegq92vqKoE3vD706ZVFWITnMnxucw+S9Ipg=="
   "resolved" "https://registry.npmjs.org/@babel/helper-environment-visitor/-/helper-environment-visitor-7.18.9.tgz"
   "version" "7.18.9"
@@ -172,12 +172,12 @@
   dependencies:
     "@babel/types" "^7.18.6"
 
-"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.12.13", "@babel/helper-plugin-utils@^7.14.5", "@babel/helper-plugin-utils@^7.16.7", "@babel/helper-plugin-utils@^7.18.6", "@babel/helper-plugin-utils@^7.18.9", "@babel/helper-plugin-utils@^7.8.0", "@babel/helper-plugin-utils@^7.8.3":
-  "integrity" "sha512-aBXPT3bmtLryXaoJLyYPXPlSD4p1ld9aYeR+sJNOZjJJGiOpb+fKfh3NkcCu7J54nUJwCERPBExCCpyCOHnu/w=="
-  "resolved" "https://registry.npmjs.org/@babel/helper-plugin-utils/-/helper-plugin-utils-7.18.9.tgz"
-  "version" "7.18.9"
+"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.12.13", "@babel/helper-plugin-utils@^7.14.5", "@babel/helper-plugin-utils@^7.16.7", "@babel/helper-plugin-utils@^7.18.6", "@babel/helper-plugin-utils@^7.18.9", "@babel/helper-plugin-utils@^7.20.2", "@babel/helper-plugin-utils@^7.8.0", "@babel/helper-plugin-utils@^7.8.3":
+  "integrity" "sha512-8RvlJG2mj4huQ4pZ+rU9lqKi9ZKiRmuvGuM2HlWmkmgOhbs6zEAw6IEiJ5cQqGbDzGZOhwuOQNtZMi/ENLjZoQ=="
+  "resolved" "https://registry.npmjs.org/@babel/helper-plugin-utils/-/helper-plugin-utils-7.20.2.tgz"
+  "version" "7.20.2"
 
-"@babel/helper-remap-async-to-generator@^7.18.6":
+"@babel/helper-remap-async-to-generator@^7.18.6", "@babel/helper-remap-async-to-generator@^7.18.9":
   "integrity" "sha512-dI7q50YKd8BAv3VEfgg7PS7yD3Rtbi2J1XMXaalXO0W0164hYLnh8zpjRS0mte9MfVp/tltvr/cfdXPvJr1opA=="
   "resolved" "https://registry.npmjs.org/@babel/helper-remap-async-to-generator/-/helper-remap-async-to-generator-7.18.9.tgz"
   "version" "7.18.9"
@@ -278,14 +278,14 @@
     "@babel/helper-skip-transparent-expression-wrappers" "^7.18.9"
     "@babel/plugin-proposal-optional-chaining" "^7.18.9"
 
-"@babel/plugin-proposal-async-generator-functions@^7.18.6":
-  "integrity" "sha512-WAz4R9bvozx4qwf74M+sfqPMKfSqwM0phxPTR6iJIi8robgzXwkEgmeJG1gEKhm6sDqT/U9aV3lfcqybIpev8w=="
-  "resolved" "https://registry.npmjs.org/@babel/plugin-proposal-async-generator-functions/-/plugin-proposal-async-generator-functions-7.18.6.tgz"
-  "version" "7.18.6"
+"@babel/plugin-proposal-async-generator-functions@^7.18.6", "@babel/plugin-proposal-async-generator-functions@^7.20.7":
+  "integrity" "sha512-xMbiLsn/8RK7Wq7VeVytytS2L6qE69bXPB10YCmMdDZbKF4okCqY74pI/jJQ/8U0b/F6NrT2+14b8/P9/3AMGA=="
+  "resolved" "https://registry.npmjs.org/@babel/plugin-proposal-async-generator-functions/-/plugin-proposal-async-generator-functions-7.20.7.tgz"
+  "version" "7.20.7"
   dependencies:
-    "@babel/helper-environment-visitor" "^7.18.6"
-    "@babel/helper-plugin-utils" "^7.18.6"
-    "@babel/helper-remap-async-to-generator" "^7.18.6"
+    "@babel/helper-environment-visitor" "^7.18.9"
+    "@babel/helper-plugin-utils" "^7.20.2"
+    "@babel/helper-remap-async-to-generator" "^7.18.9"
     "@babel/plugin-syntax-async-generators" "^7.8.4"
 
 "@babel/plugin-proposal-class-properties@^7.18.6":
@@ -1496,10 +1496,10 @@
     "@typescript-eslint/types" "5.31.0"
     "eslint-visitor-keys" "^3.3.0"
 
-"@videojs/http-streaming@2.14.2":
-  "integrity" "sha512-K1raSfO/pq5r8iUas3OSYni0kXOj91n8ealIpV02khghzGv9LQ6O3YUqYd/eAhJ1HIrmZWOnrYpK/P+mhUExXQ=="
-  "resolved" "https://registry.npmjs.org/@videojs/http-streaming/-/http-streaming-2.14.2.tgz"
-  "version" "2.14.2"
+"@videojs/http-streaming@2.14.3":
+  "integrity" "sha512-2tFwxCaNbcEZzQugWf8EERwNMyNtspfHnvxRGRABQs09W/5SqmkWFuGWfUAm4wQKlXGfdPyAJ1338ASl459xAA=="
+  "resolved" "https://registry.npmjs.org/@videojs/http-streaming/-/http-streaming-2.14.3.tgz"
+  "version" "2.14.3"
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@videojs/vhs-utils" "3.0.5"
@@ -1675,9 +1675,9 @@
     "http-parser-js" "^0.4.3"
 
 "@xmldom/xmldom@^0.7.2":
-  "integrity" "sha512-V3BIhmY36fXZ1OtVcI9W+FxQqxVLsPKcNjWigIaa81dLC9IolJl5Mt4Cvhmr0flUnjSpTdrbMTSbXqYqV5dT6A=="
-  "resolved" "https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.7.5.tgz"
-  "version" "0.7.5"
+  "integrity" "sha512-yceMpm/xd4W2a85iqZyO09gTnHvXF6pyiWjD2jcOJs7hRoZtNNOO1eJlhHj1ixA+xip2hOyGn+LgcvLCMo5zXA=="
+  "resolved" "https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.7.9.tgz"
+  "version" "0.7.9"
 
 "@xtuc/ieee754@^1.2.0":
   "integrity" "sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA=="
@@ -1928,9 +1928,9 @@
   "version" "1.11.0"
 
 "b4a@^1.3.1":
-  "integrity" "sha512-fsTxXxj1081Yq5MOQ06gZ5+e2QcSyP2U6NofdOWyq+lrNI4IjkZ+fLVmoQ6uUCiNg1NWePMMVq93vOTdbJmErw=="
-  "resolved" "https://registry.npmjs.org/b4a/-/b4a-1.6.0.tgz"
-  "version" "1.6.0"
+  "integrity" "sha512-AsKjNhz72yxteo/0EtQEiwkMUgk/tGmycXlbG4g3Ard2/ULtNLUykGOkeK0egmN27h0xMAhb76jYccW+XTBExA=="
+  "resolved" "https://registry.npmjs.org/b4a/-/b4a-1.6.1.tgz"
+  "version" "1.6.1"
 
 "babel-loader@^8.2.5":
   "integrity" "sha512-OSiFfH89LrEMiWd4pLNqGz4CwJDtbs2ZVc+iGu2HrkRfPxId9F2anQj38IxWpmRfsUY0aBZYi1EFcd3mhtRMLQ=="
@@ -2039,19 +2039,19 @@
   "resolved" "https://registry.npmjs.org/bitfield/-/bitfield-4.1.0.tgz"
   "version" "4.1.0"
 
-"bittorrent-dht@^10.0.4":
-  "integrity" "sha512-Yx5cZXU4R+mUbxR2PbKdvOVTizOrePPF8NT3WGCXX5qzJVt8gF8gq9GMBWcmNjHUBYHVigDaRf030hxQ2dJWUg=="
-  "resolved" "https://registry.npmjs.org/bittorrent-dht/-/bittorrent-dht-10.0.4.tgz"
-  "version" "10.0.4"
+"bittorrent-dht@^10.0.6", "bittorrent-dht@^10.0.7":
+  "integrity" "sha512-o6elCANGteECXz82LFqG1Ov2fG4uNzfUU7pBMx9ixxKUh99ZXNrhbiNLRNN2F2vBnqKSN7SHlUW4LJ5Z2u1eKw=="
+  "resolved" "https://registry.npmjs.org/bittorrent-dht/-/bittorrent-dht-10.0.7.tgz"
+  "version" "10.0.7"
   dependencies:
     "bencode" "^2.0.3"
-    "debug" "^4.1.1"
-    "k-bucket" "^5.0.0"
-    "k-rpc" "^5.0.0"
+    "debug" "^4.3.4"
+    "k-bucket" "^5.1.0"
+    "k-rpc" "^5.1.0"
     "last-one-wins" "^1.0.4"
     "lru" "^3.1.0"
     "randombytes" "^2.1.0"
-    "record-cache" "^1.0.2"
+    "record-cache" "^1.2.0"
     "simple-sha1" "^3.1.0"
 
 "bittorrent-lsd@^1.1.1":
@@ -2119,7 +2119,12 @@
   "resolved" "https://registry.npmjs.org/blob-to-buffer/-/blob-to-buffer-1.2.9.tgz"
   "version" "1.2.9"
 
-"block-stream2@^2.0.0", "block-stream2@^2.1.0":
+"block-iterator@^1.0.1":
+  "integrity" "sha512-DrjdVWZemVO4iBf4tiOXjUrY5cNesjzy0t7sIiu2rdl8cOCHRxAgKjSJFc3vBZYYMMmshUAxajl8QQh/uxXTKQ=="
+  "resolved" "https://registry.npmjs.org/block-iterator/-/block-iterator-1.1.1.tgz"
+  "version" "1.1.1"
+
+"block-stream2@^2.0.0":
   "integrity" "sha512-suhjmLI57Ewpmq00qaygS8UgEq2ly2PCItenIyhMqVjo4t4pGzqMvfgJuX8iWTeSDdfSSqS6j38fL4ToNL7Pfg=="
   "resolved" "https://registry.npmjs.org/block-stream2/-/block-stream2-2.1.0.tgz"
   "version" "2.1.0"
@@ -2590,22 +2595,20 @@
   "resolved" "https://registry.npmjs.org/cpus/-/cpus-1.0.3.tgz"
   "version" "1.0.3"
 
-"create-torrent@^5.0.4":
-  "integrity" "sha512-59brGxFHoWWXzpFKAwD/vB/BYTALDuf+1Wmajxq2ZYnllJtg8SwfcmP7PHCKas5mDTZLD4om1cneC1YMZFuPUA=="
-  "resolved" "https://registry.npmjs.org/create-torrent/-/create-torrent-5.0.4.tgz"
-  "version" "5.0.4"
+"create-torrent@^5.0.9":
+  "integrity" "sha512-WQ/bMe+aCBSa5EonIkgw7CTM/1JnJDQuLJhA78omSWvuEbXDwaUy0rG3a+IYt+EiO+rdTLxdsBwrsn/wfWOMQA=="
+  "resolved" "https://registry.npmjs.org/create-torrent/-/create-torrent-5.0.9.tgz"
+  "version" "5.0.9"
   dependencies:
     "bencode" "^2.0.3"
-    "block-stream2" "^2.1.0"
-    "fast-blob-stream" "^1.0.3"
+    "block-iterator" "^1.0.1"
+    "fast-readable-async-iterator" "^1.1.1"
     "is-file" "^1.0.0"
+    "join-async-iterator" "^1.1.1"
     "junk" "^3.1.0"
-    "minimist" "^1.2.5"
-    "multistream" "^4.1.0"
-    "once" "^1.4.0"
+    "minimist" "^1.2.7"
     "piece-length" "^2.0.1"
     "queue-microtask" "^1.2.3"
-    "readable-stream" "^3.6.0"
     "run-parallel" "^1.2.0"
     "simple-sha1" "^3.1.0"
 
@@ -3234,7 +3237,7 @@
   "resolved" "https://registry.npmjs.org/extsprintf/-/extsprintf-1.3.0.tgz"
   "version" "1.3.0"
 
-"fast-blob-stream@^1.0.3":
+"fast-blob-stream@^1.1.1":
   "integrity" "sha512-wdRazMMeM2pl8hq1lFG8fzix8p1VLAJunTTE2RADiFBwbUfZwybUm6IwPrmMS7qTthiayr166NoXeqWe3hfR5w=="
   "resolved" "https://registry.npmjs.org/fast-blob-stream/-/fast-blob-stream-1.1.1.tgz"
   "version" "1.1.1"
@@ -3247,7 +3250,7 @@
   "resolved" "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
   "version" "3.1.3"
 
-"fast-fifo@^1.0.0":
+"fast-fifo@^1.1.0":
   "integrity" "sha512-Kl29QoNbNvn4nhDsLYjyIAaIqaJB6rBx5p3sL9VjaefJ+eMFBWVZiaoguaoZfzEKr5RhAti0UgM8703akGPJ6g=="
   "resolved" "https://registry.npmjs.org/fast-fifo/-/fast-fifo-1.1.0.tgz"
   "version" "1.1.0"
@@ -3373,15 +3376,14 @@
   "resolved" "https://registry.npmjs.org/freelist/-/freelist-1.0.3.tgz"
   "version" "1.0.3"
 
-"fs-chunk-store@^2.0.5":
-  "integrity" "sha512-z3c2BmyaHdQTtIVXJDQOvwZVWN2gNU//0IYKK2LuPr+cZyGoIrgDwI4iDASaTUyQbOBtyg/k6GuDZepB6jQIPw=="
-  "resolved" "https://registry.npmjs.org/fs-chunk-store/-/fs-chunk-store-2.0.5.tgz"
-  "version" "2.0.5"
+"fs-chunk-store@^3.0.1":
+  "integrity" "sha512-YrOFuXtUJQBkOZ2QBXBoIrjLJ/TNTpEaGnxV+TmL1qaW5J4ah6lxMh/X9pb3To+hbaoT/pRuBXLkkqoavQoQFw=="
+  "resolved" "https://registry.npmjs.org/fs-chunk-store/-/fs-chunk-store-3.0.1.tgz"
+  "version" "3.0.1"
   dependencies:
     "queue-microtask" "^1.2.2"
     "random-access-file" "^2.0.1"
     "randombytes" "^2.0.3"
-    "rimraf" "^3.0.0"
     "run-parallel" "^1.1.2"
     "thunky" "^1.0.1"
 
@@ -3396,6 +3398,11 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -3678,10 +3685,10 @@
   "resolved" "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   "version" "1.2.0"
 
-"hls.js@1.2.0":
-  "integrity" "sha512-QIEQIUpBRhcpBMq3NA+/qozG8lbNfVekuX7kCMUlhiVu4382xFWsnwcuBe/CA4Gp/wB/pf2aRBaGRFlxh/FN8g=="
-  "resolved" "https://registry.npmjs.org/hls.js/-/hls.js-1.2.0.tgz"
-  "version" "1.2.0"
+"hls.js@1.2.9":
+  "integrity" "sha512-SPjm8ix0xe6cYzwDvdVGh2QvQPDkCYrGWpZu6bRaKNNVyEGWM9uF0pooh/Lqj/g8QBQgPFEx1vHzW8SyMY9rqg=="
+  "resolved" "https://registry.npmjs.org/hls.js/-/hls.js-1.2.9.tgz"
+  "version" "1.2.9"
 
 "hosted-git-info@^2.1.4":
   "integrity" "sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw=="
@@ -4165,6 +4172,11 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
+"join-async-iterator@^1.1.1":
+  "integrity" "sha512-ATse+nuNeKZ9K1y27LKdvPe/GCe9R/u9dw9vI248e+vILeRK3IcJP4JUPAlSmKRCDK0cKhEwfmiw4Skqx7UnGQ=="
+  "resolved" "https://registry.npmjs.org/join-async-iterator/-/join-async-iterator-1.1.1.tgz"
+  "version" "1.1.1"
+
 "js-tokens@^4.0.0":
   "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
   "resolved" "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
@@ -4264,7 +4276,7 @@
   "resolved" "https://registry.npmjs.org/junk/-/junk-3.1.0.tgz"
   "version" "3.1.0"
 
-"k-bucket@^5.0.0":
+"k-bucket@^5.0.0", "k-bucket@^5.1.0":
   "integrity" "sha512-Fac7iINEovXIWU20GPnOMLUbjctiS+cnmyjC4zAUgvs3XPf1vo9akfCHkigftSic/jiKqKl+KA3a/vFcJbHyCg=="
   "resolved" "https://registry.npmjs.org/k-bucket/-/k-bucket-5.1.0.tgz"
   "version" "5.1.0"
@@ -4281,7 +4293,7 @@
     "chrome-dns" "^1.0.0"
     "chrome-net" "^3.3.2"
 
-"k-rpc@^5.0.0":
+"k-rpc@^5.1.0":
   "integrity" "sha512-FGc+n70Hcjoa/X2JTwP+jMIOpBz+pkRffHnSl9yrYiwUxg3FIgD50+u1ePfJUOnRCnx6pbjmVk5aAeB1wIijuQ=="
   "resolved" "https://registry.npmjs.org/k-rpc/-/k-rpc-5.1.0.tgz"
   "version" "5.1.0"
@@ -4668,10 +4680,10 @@
     "is-plain-obj" "^1.1.0"
     "kind-of" "^6.0.3"
 
-"minimist@^1.2.0", "minimist@^1.2.5", "minimist@^1.2.6":
-  "integrity" "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="
-  "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
-  "version" "1.2.6"
+"minimist@^1.2.0", "minimist@^1.2.5", "minimist@^1.2.6", "minimist@^1.2.7":
+  "integrity" "sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g=="
+  "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.7.tgz"
+  "version" "1.2.7"
 
 "minipass@^3.0.0":
   "integrity" "sha512-I9WPbWHCGu8W+6k1ZiGpPu0GkoKBeorkfKNuAFBNS1HNFJvke82sxvI5bzcCNpWPorkOO5QQ+zomzzwRxejXiw=="
@@ -4744,14 +4756,6 @@
   "integrity" "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
   "version" "2.0.0"
-
-"multistream@^4.1.0":
-  "integrity" "sha512-J1XDiAmmNpRCBfIWJv+n0ymC4ABcf/Pl+5YvC5B/D2f/2+8PtHvCNxMPKiQcZyi922Hq69J2YOpb1pTywfifyw=="
-  "resolved" "https://registry.npmjs.org/multistream/-/multistream-4.1.0.tgz"
-  "version" "4.1.0"
-  dependencies:
-    "once" "^1.4.0"
-    "readable-stream" "^3.6.0"
 
 "mux.js@6.0.1":
   "integrity" "sha512-22CHb59rH8pWGcPGW5Og7JngJ9s+z4XuSlYvnxhLuc58cA1WqGDQPzuG8I+sPm1/p0CdgpzVTaKW408k5DNn8w=="
@@ -4983,10 +4987,10 @@
   "resolved" "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
   "version" "2.2.0"
 
-"p2p-media-loader-core-basyton@^1.0.17":
-  "integrity" "sha512-Xqxu5HDovAJDZWy2oiPz6+DdLFq9+4d0CSPa4fXFmH63zhNom7KBVgRS2wq2bcJAn2nhc7O+T6Xr69PmVFzuqA=="
-  "resolved" "https://registry.npmjs.org/p2p-media-loader-core-basyton/-/p2p-media-loader-core-basyton-1.0.17.tgz"
-  "version" "1.0.17"
+"p2p-media-loader-core-basyton@^1.0.23":
+  "integrity" "sha512-U+XN3et669iFmFkLUlmDLN1XM4UdmfPMoKgu31RbVmKzPE7hGnCvX25JDZq+j6VUFhoOWnDkdTyC2Gu1zgF2iw=="
+  "resolved" "https://registry.npmjs.org/p2p-media-loader-core-basyton/-/p2p-media-loader-core-basyton-1.0.23.tgz"
+  "version" "1.0.23"
   dependencies:
     "bittorrent-tracker" "^9.19.0"
     "debug" "^4.3.4"
@@ -4994,15 +4998,15 @@
     "sha.js" "^2.4.11"
     "simple-peer" "^9.11.1"
 
-"p2p-media-loader-hlsjs-basyton@^1.0.17":
-  "integrity" "sha512-fg87i/ivF//mnA1WB9JqnAXaubB/gG++nB1I/BVBiWo/N4IkdEKyhucRMvpBDlWYJj2/M3hNyPtKYDYMEkGpOg=="
-  "resolved" "https://registry.npmjs.org/p2p-media-loader-hlsjs-basyton/-/p2p-media-loader-hlsjs-basyton-1.0.17.tgz"
-  "version" "1.0.17"
+"p2p-media-loader-hlsjs-basyton@^1.0.23":
+  "integrity" "sha512-BUx8hAvcEl2N9BRk+crvl293DGlXgCmcu+zDKT9nVM69HdHBC2Hr8E3AeoQ4x7s6f+/8w3SOihpdh9+Tv9VIwg=="
+  "resolved" "https://registry.npmjs.org/p2p-media-loader-hlsjs-basyton/-/p2p-media-loader-hlsjs-basyton-1.0.23.tgz"
+  "version" "1.0.23"
   dependencies:
     "debug" "^4.3.4"
     "events" "^3.3.0"
     "m3u8-parser" "^4.7.1"
-    "p2p-media-loader-core-basyton" "^1.0.17"
+    "p2p-media-loader-core-basyton" "^1.0.23"
 
 "package-json-versionify@^1.0.4":
   "integrity" "sha512-mtKKtCeSZMtWcc5hHJS6OlEGP7J9g7WN6vWCCZi2hCXFag/Zmjokh6WFFTQb9TuMnBcZpRjhhMQyOyglPCAahw=="
@@ -5324,10 +5328,10 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
-"queue-tick@^1.0.0":
-  "integrity" "sha512-ULWhjjE8BmiICGn3G8+1L9wFpERNxkf8ysxkAer4+TFdRefDaXOCV5m92aMB9FtBVmn/8sETXLXY6BfW7hyaWQ=="
-  "resolved" "https://registry.npmjs.org/queue-tick/-/queue-tick-1.0.0.tgz"
-  "version" "1.0.0"
+"queue-tick@^1.0.0", "queue-tick@^1.0.1":
+  "integrity" "sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag=="
+  "resolved" "https://registry.npmjs.org/queue-tick/-/queue-tick-1.0.1.tgz"
+  "version" "1.0.1"
 
 "quick-lru@^4.0.1":
   "integrity" "sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g=="
@@ -5457,7 +5461,7 @@
   dependencies:
     "resolve" "^1.9.0"
 
-"record-cache@^1.0.2":
+"record-cache@^1.2.0":
   "integrity" "sha512-kyy3HWCez2WrotaL3O4fTn0rsIdfRKOdQQcEJ9KpvmKmbffKVvwsloX063EgRUlpJIXHiDQFhJcTbZequ2uTZw=="
   "resolved" "https://registry.npmjs.org/record-cache/-/record-cache-1.2.0.tgz"
   "version" "1.2.0"
@@ -5658,7 +5662,7 @@
     "convert-source-map" "^0.3.3"
     "css" "^2.0.0"
 
-"rimraf@^3.0.0", "rimraf@^3.0.2":
+"rimraf@^3.0.2":
   "integrity" "sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA=="
   "resolved" "https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz"
   "version" "3.0.2"
@@ -6128,7 +6132,7 @@
   dependencies:
     "stream-to-blob" "^2.0.0"
 
-"stream-to-blob@^2.0.0", "stream-to-blob@^2.0.1":
+"stream-to-blob@^2.0.0":
   "integrity" "sha512-GXlqXt3svqwIVWoICenix5Poxi4KbCF0BdXXUbpU1X4vq1V8wmjiEIU3aFJzCGNFpKxfbnG0uoowS3nKUgSPYg=="
   "resolved" "https://registry.npmjs.org/stream-to-blob/-/stream-to-blob-2.0.1.tgz"
   "version" "2.0.1"
@@ -6140,13 +6144,13 @@
   dependencies:
     "once" "^1.4.0"
 
-"streamx@^2.10.3", "streamx@^2.12.4":
-  "integrity" "sha512-K3xdIp8YSkvbdI0PrCcP0JkniN8cPCyeKlcZgRFSl1o1xKINCYM93FryvTSOY57x73pz5/AjO5B8b9BYf21wWw=="
-  "resolved" "https://registry.npmjs.org/streamx/-/streamx-2.12.4.tgz"
-  "version" "2.12.4"
+"streamx@^2.10.3", "streamx@^2.12.4", "streamx@^2.12.5":
+  "integrity" "sha512-9jD4uoX0juNSIcv4PazT+97FpM4Mww3cp7PM23HRTLANhgb7K7n1mB45guH/kT5F4enl04kApOM3EeoUXSPfvw=="
+  "resolved" "https://registry.npmjs.org/streamx/-/streamx-2.13.0.tgz"
+  "version" "2.13.0"
   dependencies:
-    "fast-fifo" "^1.0.0"
-    "queue-tick" "^1.0.0"
+    "fast-fifo" "^1.1.0"
+    "queue-tick" "^1.0.1"
 
 "string_decoder@^1.1.1":
   "integrity" "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA=="
@@ -6476,12 +6480,12 @@
   "resolved" "https://registry.npmjs.org/tokenizr/-/tokenizr-1.6.7.tgz"
   "version" "1.6.7"
 
-"torrent-discovery@^9.4.13":
-  "integrity" "sha512-HZD8nAxIejcGnzUyXRMhBnK0rYQCQ85vaaCzmzl2r3/vmj0M/b6JuO6yNhe1vyLOU3ZngzDYaHxCJjmAIa4wwg=="
-  "resolved" "https://registry.npmjs.org/torrent-discovery/-/torrent-discovery-9.4.13.tgz"
-  "version" "9.4.13"
+"torrent-discovery@^9.4.14":
+  "integrity" "sha512-71nx+TpLaF27mbsSj/tZTr588Dfk7XVzx+Rf1+nrxfXqe8qn5dIlRhgA+yY4cg8Ib69vWwkKFhAzbRqg8z42aw=="
+  "resolved" "https://registry.npmjs.org/torrent-discovery/-/torrent-discovery-9.4.15.tgz"
+  "version" "9.4.15"
   dependencies:
-    "bittorrent-dht" "^10.0.4"
+    "bittorrent-dht" "^10.0.7"
     "bittorrent-lsd" "^1.1.1"
     "bittorrent-tracker" "^9.19.0"
     "debug" "^4.3.4"
@@ -6758,13 +6762,13 @@
     "core-util-is" "1.0.2"
     "extsprintf" "^1.2.0"
 
-"video.js@^6 || ^7", "video.js@^7.19.2", "video.js@^7.6.0":
-  "integrity" "sha512-QMuj+bjwvLId9SY8uBAjO9sw7pCDhdVzJtwsAwg1MdVLXgVuxhhSYswdsdsRk+YMssHtReopINclvDlTGTxMLA=="
-  "resolved" "https://registry.npmjs.org/video.js/-/video.js-7.20.1.tgz"
-  "version" "7.20.1"
+"video.js@^6 || ^7", "video.js@^7.20.3", "video.js@^7.6.0":
+  "integrity" "sha512-JMspxaK74LdfWcv69XWhX4rILywz/eInOVPdKefpQiZJSMD5O8xXYueqACP2Q5yqKstycgmmEKlJzZ+kVmDciw=="
+  "resolved" "https://registry.npmjs.org/video.js/-/video.js-7.20.3.tgz"
+  "version" "7.20.3"
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@videojs/http-streaming" "2.14.2"
+    "@videojs/http-streaming" "2.14.3"
     "@videojs/vhs-utils" "^3.0.4"
     "@videojs/xhr" "2.6.0"
     "aes-decrypter" "3.1.3"
@@ -6775,7 +6779,7 @@
     "mux.js" "6.0.1"
     "safe-json-parse" "4.0.0"
     "videojs-font" "3.2.0"
-    "videojs-vtt.js" "^0.15.3"
+    "videojs-vtt.js" "^0.15.4"
 
 "videojs-font@3.2.0":
   "integrity" "sha512-g8vHMKK2/JGorSfqAZQUmYYNnXmfec4MLhwtEFS+mMs2IDY398GLysy6BH6K+aS1KMNu/xWZ8Sue/X/mdQPliA=="
@@ -6790,10 +6794,10 @@
     "global" "^4.3.2"
     "video.js" "^6 || ^7"
 
-"videojs-vtt.js@^0.15.3":
-  "integrity" "sha512-5FvVsICuMRx6Hd7H/Y9s9GDeEtYcXQWzGMS+sl4UX3t/zoHp3y+isSfIPRochnTH7h+Bh1ILyC639xy9Z6kPag=="
-  "resolved" "https://registry.npmjs.org/videojs-vtt.js/-/videojs-vtt.js-0.15.3.tgz"
-  "version" "0.15.3"
+"videojs-vtt.js@^0.15.4":
+  "integrity" "sha512-r6IhM325fcLb1D6pgsMkTQT1PpFdUdYZa1iqk7wJEu+QlibBwATPfPc9Bg8Jiym0GE5yP1AG2rMLu+QMVWkYtA=="
+  "resolved" "https://registry.npmjs.org/videojs-vtt.js/-/videojs-vtt.js-0.15.4.tgz"
+  "version" "0.15.4"
   dependencies:
     "global" "^4.3.1"
 
@@ -6817,10 +6821,10 @@
     "glob-to-regexp" "^0.4.1"
     "graceful-fs" "^4.1.2"
 
-"webpack-bundle-analyzer@^4.4.2":
-  "integrity" "sha512-GUMZlM3SKwS8Z+CKeIFx7CVoHn3dXFcUAjT/dcZQQmfSZGvitPfMob2ipjai7ovFFqPvTqkEZ/leL4O0YOdAYQ=="
-  "resolved" "https://registry.npmjs.org/webpack-bundle-analyzer/-/webpack-bundle-analyzer-4.5.0.tgz"
-  "version" "4.5.0"
+"webpack-bundle-analyzer@^4.7.0":
+  "integrity" "sha512-j9b8ynpJS4K+zfO5GGwsAcQX4ZHpWV+yRiHDiL+bE0XHJ8NiPYLTNVQdlFYWxtpg9lfAQNlwJg16J9AJtFSXRg=="
+  "resolved" "https://registry.npmjs.org/webpack-bundle-analyzer/-/webpack-bundle-analyzer-4.7.0.tgz"
+  "version" "4.7.0"
   dependencies:
     "acorn" "^8.0.4"
     "acorn-walk" "^8.0.0"
@@ -6893,31 +6897,32 @@
     "watchpack" "^2.4.0"
     "webpack-sources" "^3.2.3"
 
-"webtorrent@^1.8.22":
-  "integrity" "sha512-1bbCIDtbk4OA7xXmT87t6jDhnng6RNC9d7HNpRyvxF0GQTrIz1fB3oDnNcbOim9Upjy1GDqxAOe0Mejmc86TUg=="
-  "resolved" "https://registry.npmjs.org/webtorrent/-/webtorrent-1.8.26.tgz"
-  "version" "1.8.26"
+"webtorrent@^1.9.6":
+  "integrity" "sha512-fJtVlqeg7s4G3MHppdONfHfspvdfJPTEgSUnc4W+i0tCtl1hyWHSdodC2T4VtNNE00Rdy60dLji3Ai0Y/FXvow=="
+  "resolved" "https://registry.npmjs.org/webtorrent/-/webtorrent-1.9.6.tgz"
+  "version" "1.9.6"
   dependencies:
     "@webtorrent/http-node" "^1.3.0"
     "addr-to-ip-port" "^1.5.4"
     "bitfield" "^4.1.0"
-    "bittorrent-dht" "^10.0.4"
+    "bittorrent-dht" "^10.0.6"
     "bittorrent-protocol" "^3.5.5"
     "cache-chunk-store" "^3.2.2"
     "chrome-net" "^3.3.4"
     "chunk-store-stream" "^4.3.0"
     "cpus" "^1.0.3"
-    "create-torrent" "^5.0.4"
+    "create-torrent" "^5.0.9"
     "debug" "^4.3.4"
     "end-of-stream" "^1.4.4"
     "escape-html" "^1.0.3"
-    "fs-chunk-store" "^2.0.5"
+    "fast-blob-stream" "^1.1.1"
+    "fs-chunk-store" "^3.0.1"
     "immediate-chunk-store" "^2.2.0"
+    "join-async-iterator" "^1.1.1"
     "load-ip-set" "^2.2.1"
     "lt_donthave" "^1.0.1"
     "memory-chunk-store" "^1.3.5"
     "mime" "^3.0.0"
-    "multistream" "^4.1.0"
     "package-json-versionify" "^1.0.4"
     "parse-torrent" "^9.1.5"
     "pump" "^3.0.0"
@@ -6933,11 +6938,10 @@
     "simple-peer" "^9.11.1"
     "simple-sha1" "^3.1.0"
     "speed-limiter" "^1.0.2"
-    "stream-to-blob" "^2.0.1"
-    "stream-to-blob-url" "^3.0.2"
     "stream-with-known-length-to-buffer" "^1.0.4"
+    "streamx" "^2.12.5"
     "throughput" "^1.0.1"
-    "torrent-discovery" "^9.4.13"
+    "torrent-discovery" "^9.4.14"
     "torrent-piece" "^2.0.1"
     "unordered-array-remove" "^1.0.2"
     "ut_metadata" "^3.5.2"

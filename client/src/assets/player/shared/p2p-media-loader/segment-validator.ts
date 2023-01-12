@@ -7,6 +7,24 @@ type SegmentsJSON = { [filename: string]: string | { [byterange: string]: string
 
 const maxRetries = 3
 
+function findbyqualityname(segments : any, name : string){
+
+  var result = undefined
+
+  name = name.substring(36)
+
+
+
+  for (var key in segments) {
+    if (segments.hasOwnProperty(key) && key.indexOf(name) > -1) {
+      result = segments[key]
+    }
+  }
+
+
+  return result
+}
+
 function segmentValidatorFactory (segmentsSha256Url: string, isLive: boolean) {
   let segmentsJSON = fetchSha256Segments(segmentsSha256Url)
   const regex = /bytes=(\d+)-(\d+)/
@@ -17,7 +35,11 @@ function segmentValidatorFactory (segmentsSha256Url: string, isLive: boolean) {
 
     const filename = basename(segment.url)
 
-    const segmentValue = (await segmentsJSON)[filename]
+    const segments = (await segmentsJSON)
+
+    const segmentValue = segments[filename] || findbyqualityname(segments, filename)
+
+
 
     if (!segmentValue && retry > maxRetries) {
       throw new Error(`Unknown segment name ${filename} in segment validator`)
@@ -50,8 +72,14 @@ function segmentValidatorFactory (segmentsSha256Url: string, isLive: boolean) {
       throw new Error(`Unknown segment name ${filename}/${range} in segment validator`)
     }
 
+
+    console.log('segment.data', segment.url, range, segment.data)
+
     const calculatedSha = await sha256Hex(segment.data)
     if (calculatedSha !== hashShouldBe) {
+
+      
+
       throw new Error(
         `Hashes does not correspond for segment ${filename}/${range}` +
         `(expected: ${hashShouldBe} instead of ${calculatedSha})`
@@ -88,7 +116,7 @@ async function sha256Hex (data?: ArrayBuffer) {
   // Fallback for non HTTPS context
   const shaModule = (await import('sha.js') as any).default
   // eslint-disable-next-line new-cap
-  return new shaModule.sha256().update(Buffer.from(data)).digest('hex')
+  return new shaModule.sha256().update(data).digest('hex')
 }
 
 // Thanks: https://stackoverflow.com/a/53307879

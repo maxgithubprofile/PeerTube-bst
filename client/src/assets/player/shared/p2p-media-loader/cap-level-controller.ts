@@ -8,7 +8,7 @@ import type {
   FPSDropLevelCappingData,
 } from 'hls.js/src/types/events';
 import type { ComponentAPI } from 'hls.js/src/types/component-api';
-import type Hls from 'hls.js';
+import type Hls from "hls.js";
 
 
 class CapLevelController implements ComponentAPI {
@@ -143,6 +143,7 @@ class CapLevelController implements ComponentAPI {
           hls.autoLevelCapping > this.autoLevelCapping &&
           this.streamController
         ) {
+
           // if auto level capping has a higher value for the previous one, flush the buffer using nextLevelSwitch
           // usually happen when the user go to the fullscreen mode.
           this.streamController.nextLevelSwitch();

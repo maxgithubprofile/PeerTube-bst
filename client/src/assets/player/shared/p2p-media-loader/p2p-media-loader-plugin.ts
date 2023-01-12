@@ -57,13 +57,7 @@ class P2pMediaLoaderPlugin extends Plugin {
         return
       }
     } else {
-      // FIXME: typings https://github.com/Microsoft/TypeScript/issues/14080
-      /*(videojs as any).Html5Hlsjs.addHook('beforeinitialize', (videojsPlayer: any, hlsjs: any) => {
-
-        console.log('beforeinitialize')
-
-        this.hlsjs = hlsjs
-      })*/
+     
 
       initVideoJsContribHlsJsPlayer(player)
     }
@@ -127,7 +121,8 @@ class P2pMediaLoaderPlugin extends Plugin {
     this.p2pEngine.on(Events.SegmentError, (segment: Segment, err) => {
       logger.error(`Segment ${segment.id} error.`, err)
 
-      this.options.redundancyUrlManager.removeBySegmentUrl(segment.requestUrl)
+      if(segment.requestUrl)
+        this.options.redundancyUrlManager.removeBySegmentUrl(segment.requestUrl)
     })
 
     this.statsP2PBytes.numPeers = 1 + this.options.redundancyUrlManager.countBaseUrls()

@@ -32,6 +32,9 @@ import { saveAverageBandwidth } from './peertube-player-local-storage'
 import { ManagerOptionsBuilder } from './shared/manager-options'
 import { TranslationsManager } from './translations-manager'
 import { CommonOptions, PeertubePlayerManagerOptions, PlayerMode, PlayerNetworkInfo } from './types'
+import './shared/p2p-media-loader/p2p-media-loader-plugin'
+import * as p2pMediaLoaderModule from 'p2p-media-loader-hlsjs-basyton'
+
 
 
 const Fn: any = require('./shared/videojs-helpers/fn.js');
@@ -118,63 +121,20 @@ SeekBar.prototype.enableInterval_ = function() {
 }
 
 SeekBar.prototype.update = function (event : any) {
-
-  // ignore updates while the tab is hidden
   if (document.visibilityState === 'hidden') {
     return;
   }
 
   const percent = this.getPercent();
 
-    
-    /*const currentTime = this.player_.ended() ?
-    
-    this.player_.duration() : this.getCurrentTime_();
+  var el = this.bar.el()
 
-    const liveTracker = this.player_.liveTracker;
-
-    let duration = this.player_.duration();
-
-    if (liveTracker && liveTracker.isLive()) {
-      duration = this.player_.liveTracker.liveCurrentTime();
-    }
-
-    if (this.percent_ !== percent) {
-      // machine readable value of progress bar (percentage complete)
-      //this.el_.setAttribute('aria-valuenow', (percent * 100).toFixed(2));
-      this.percent_ = percent;
-    }
-
-    if (this.currentTime_ !== currentTime || this.duration_ !== duration) {
-      // human readable value of progress bar (time complete)
-
-      this.currentTime_ = currentTime;
-      this.duration_ = duration;
-    }*/
-
-    var el = this.bar.el()
-
-    el.style['transform-origin'] = 'left'
-    el.style['transform'] = 'scaleX('+(percent).toFixed(2)+')'
-
+  el.style['transform-origin'] = 'left'
+  el.style['transform'] = 'scaleX('+(percent).toFixed(2)+')'
 
   return percent;
   
 }
-
-SeekBar.prototype.handleMouseMove = function handleMouseMove (event: any) {
-
-  let newTime = this.calculateDistance(event) * this.player_.duration()
-  if (newTime === this.player_.duration()) {
-    newTime = newTime - 0.1
-  }
-
-  this.player_.currentTime(newTime)
-  this.update()
-}
-
-// Change 'Playback Rate' to 'Speed' (smaller for our settings menu)
-//(videojs.getComponent('PlaybackRateMenuButton') as any).prototype.controlText_ = 'Speed'
 
 const CaptionsButton = videojs.getComponent('CaptionsButton') as any
 // Change Captions to Subtitles/CC
@@ -203,17 +163,12 @@ export class PeertubePlayerManager {
     this.onPlayerChange = onPlayerChange
     this.playerElementClassName = options.common.playerElement.className
 
-    if (mode === 'webtorrent') await import('./shared/webtorrent/webtorrent-plugin')
-    if (mode === 'p2p-media-loader') {
-      const [ p2pMediaLoaderModule ] = await Promise.all([
-        import('p2p-media-loader-hlsjs-basyton'),
-        import('./shared/p2p-media-loader/p2p-media-loader-plugin')
-      ])
+    //if (mode === 'webtorrent') await import('./shared/webtorrent/webtorrent-plugin')
 
+
+    if (mode === 'p2p-media-loader') {
       this.p2pMediaLoaderModule = p2pMediaLoaderModule
     }
-
-    //await TranslationsManager.loadLocaleInVideoJS(options.common.serverUrl, options.common.language, videojs)
 
 
     return this.buildPlayer(mode, options)
@@ -243,14 +198,14 @@ export class PeertubePlayerManager {
       videojs(options.common.playerElement, videojsOptions, function (this: videojs.Player) {
         const player = this
 
-        let alreadyFallback = false
+        //let alreadyFallback = false
 
         const handleError = () => {
-          if (alreadyFallback) return
-          alreadyFallback = true
+          //if (alreadyFallback) return
+          //alreadyFallback = true
 
           if (mode === 'p2p-media-loader') {
-            self.tryToRecoverHLSError(player.error(), player, options)
+            //self.tryToRecoverHLSError(player.error(), player, options)
           } else {
             /// remove torrent /// self.maybeFallbackToWebTorrent(mode, player, options)
           }
@@ -273,18 +228,30 @@ export class PeertubePlayerManager {
 
         player.bezels()
 
-        player.stats({
-          videoUUID: options.common.videoUUID,
-          videoIsLive: options.common.isLive,
-          mode,
-          p2pEnabled: options.common.p2pEnabled
-        })
+        if(mode != 'localvideo'){
+          
+          player.stats({
+            videoUUID: options.common.videoUUID,
+            videoIsLive: options.common.isLive,
+            mode,
+            p2pEnabled: options.common.p2pEnabled
+          })
 
-        player.on('p2pInfo', (_, data: PlayerNetworkInfo) => {
-          if (data.source !== 'p2p-media-loader' || isNaN(data.bandwidthEstimate)) return
+          player.on('p2pInfo', (_, data: PlayerNetworkInfo) => {
+            if (data.source !== 'p2p-media-loader' || isNaN(data.bandwidthEstimate)) return
 
-          saveAverageBandwidth(data.bandwidthEstimate)
-        })
+            saveAverageBandwidth(data.bandwidthEstimate)
+          })
+
+        }
+        else{
+          player.on('durationchange', () => {
+            console.log("?????????????")
+            if(player.duration() != options.common.videoDuration)
+              player.duration(options.common.videoDuration)
+          })
+
+        }
 
         return res(player)
       })
@@ -324,6 +291,7 @@ export class PeertubePlayerManager {
     currentPlayer: videojs.Player,
     options: PeertubePlayerManagerOptions
   ) {
+
     if (options.webtorrent.videoFiles.length === 0 || currentMode === 'webtorrent') {
       currentPlayer.peertube().displayFatalError()
       return
@@ -333,7 +301,7 @@ export class PeertubePlayerManager {
 
     this.rebuildAndUpdateVideoElement(currentPlayer, options.common)
 
-    await import('./shared/webtorrent/webtorrent-plugin')
+    //await import('./shared/webtorrent/webtorrent-plugin')
 
     const newPlayer = await this.buildPlayer('webtorrent', options)
     this.onPlayerChange(newPlayer)

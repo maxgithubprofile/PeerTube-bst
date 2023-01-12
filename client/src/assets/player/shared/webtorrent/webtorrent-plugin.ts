@@ -290,7 +290,9 @@ class WebTorrentPlugin extends Plugin {
         this.flushVideoFile(previousVideoFile)
 
         // Update progress bar (just for the UI), do not wait rendering
-        if (options.seek) this.player.currentTime(options.seek)
+        if (options.seek) {
+          this.player.currentTime(options.seek)
+        }
 
         const renderVideoOptions = { autoplay: false, controls: true }
         renderVideo(torrent.files[0], this.playerElement, renderVideoOptions, (err, renderer) => {
@@ -580,7 +582,6 @@ class WebTorrentPlugin extends Plugin {
       if (this.destroyingFakeRenderer === false && err) {
         logger.error('Cannot render new torrent in fake video element.', err)
       }
-
       // Load the future file at the correct time (in delay MS - 2 seconds)
       fakeVideoElem.currentTime = this.player.currentTime() + (delay - 2000)
     })

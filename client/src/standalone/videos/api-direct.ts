@@ -229,6 +229,10 @@ export class PeerTubeEmbedApi {
 			this.clbk[obj.method](obj.params)
 	}
 
+	public send(obj: any){
+		this.answer(obj)
+	}
+
 	public setupStateTracking() {
 
 		let currentState: 'playing' | 'paused' | 'unstarted' | 'ended' = 'unstarted'
@@ -236,26 +240,6 @@ export class PeerTubeEmbedApi {
 		this.clear()
 
 		if(!this.embed.player) return
-
-		this.updateinterval = setInterval(() => {
-			if (!this.element) return
-
-			const position = this.getPosition()
-			const volume = this.element.volume
-
-			this.state = currentState
-
-
-			this.answer({
-				method: 'playbackStatusUpdate',
-				params: {
-					position,
-					volume,
-					duration: this.embed.player.duration(),
-					playbackState: currentState
-				}
-			})
-		}, 500)
 
 		var slf = this
 
@@ -265,15 +249,41 @@ export class PeerTubeEmbedApi {
 
 		if(typeof player.p2pMediaLoader == 'function') hls = player.p2pMediaLoader().getHLSJS()
 
+		this.updateinterval = setInterval(() => {
+			if (!this.element) return
+
+			const position = this.getPosition()
+			const volume = this.element.volume
+
+			this.state = currentState
+
+			this.answer({
+				method: 'playbackStatusUpdate',
+				params: {
+					position,
+					volume,
+					duration: this.embed.player.duration(),
+					playbackState: currentState,
+
+					bandwidthEstimate : hls.bandwidthEstimate
+				}
+			})
+		}, 500)
+
+		
+
 		if (hls){
 
 			hls.on('hlsError', (event : any, data : any) => {
 
-				if (data.details == "bufferStalledError"){
-					slf.answer({ method: 'hlsError', params: {
-						data : data,
-						message: `HLS.js error: ${data.type} - fatal: ${data.fatal} - ${data.details}; Q:${this.embed.player.p2pMediaLoader().getHLSJS().currentLevel || 'undefined'}`
-					}})
+				if (data.fatal){
+					slf.answer({ 
+						method: 'error', 
+						params: {
+							data : data,
+							message: `HLS.js error: ${data.type} - fatal: ${data.fatal} - ${data.details}; Q:${this.embed.player.p2pMediaLoader().getHLSJS().currentLevel || 'undefined'}`
+						}
+					})
 				}
 
 			})
@@ -283,6 +293,25 @@ export class PeerTubeEmbedApi {
 			slf.answer({ method: 'pictureInPictureRequest' })
 		})
 		
+		this.embed.player.on('error', () => {
+
+			if (this.embed.player.error){
+				var error = this.embed.player.error()
+
+				if (error){
+					slf.answer({ 
+						method: 'error', 
+						params: {
+							error
+						}
+					})
+				}
+			}
+			
+
+			
+
+		})
 
 		this.embed.player.on('play', function (ev: any) {
 
@@ -354,6 +383,6 @@ export class PeerTubeEmbedApi {
 	}
 
 	public isWebtorrent() {
-		return this.embed.player.webtorrent
+		return false
 	}
 }

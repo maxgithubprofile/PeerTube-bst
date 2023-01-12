@@ -3,9 +3,10 @@
 
 import Hlsjs, { ErrorData, HlsConfig, Level, LevelSwitchingData, ManifestParsedData } from 'hls.js'
 import videojs from 'video.js'
-import { logger } from '@root-helpers/logger'
+import { logger, Logger } from '@root-helpers/logger'
 import { HlsjsConfigHandlerOptions, PeerTubeResolution, VideoJSTechHLS } from '../../types'
 import CapLevelController from './cap-level-controller'
+import AbrController from './abr-controler'
 
 type ErrorCounts = {
   [ type: string ]: number
@@ -16,6 +17,8 @@ type Metadata = {
 }
 
 type HookFn = (player: videojs.Player, hljs: Hlsjs) => void
+
+const VIDEO_HLS_ERROR = 'HLS Error'
 
 const registerSourceHandler = function (vjs: typeof videojs) {
   if (!Hlsjs.isSupported()) {
@@ -44,11 +47,8 @@ const registerSourceHandler = function (vjs: typeof videojs) {
 
     handleSource: function (source: videojs.Tech.SourceObject, tech: VideoJSTechHLS) {
       if (tech.hlsProvider) {
-        console.log("HERE")
         tech.hlsProvider.dispose()
       }
-
-      console.log("???ASD")
 
       tech.hlsProvider = new Html5Hlsjs(vjs, source, tech)
 
@@ -73,7 +73,7 @@ function hlsjsConfigHandler (this: videojs.Player, options: HlsjsConfigHandlerOp
     player.srOptions_.hlsjsConfig = options.hlsjsConfig
   }
 
-  
+
 
   if (options.levelLabelHandler && !player.srOptions_.levelLabelHandler) {
     player.srOptions_.levelLabelHandler = options.levelLabelHandler
@@ -96,10 +96,12 @@ class Html5Hlsjs {
   private readonly source: videojs.Tech.SourceObject
   private readonly vjs: typeof videojs
 
-  private maxNetworkErrorRecovery = 5
+  private maxNetworkErrorRecovery = 10
 
   private hls: Hlsjs
   private hlsjsConfig: Partial<HlsConfig & { cueHandler: any }> = null
+
+  private videoLogger: Logger
 
   private _duration: number = null
   private metadata: Metadata = null
@@ -120,6 +122,8 @@ class Html5Hlsjs {
 
     this.videoElement = tech.el() as HTMLVideoElement
     this.player = vjs((tech.options_ as any).playerId)
+
+    this.videoLogger = new Logger(true)
 
     this.videoElement.addEventListener('error', event => {
       let errorTxt: string
@@ -183,11 +187,13 @@ class Html5Hlsjs {
 
     // FIXME: https://github.com/video-dev/hls.js/issues/4092
     const untypedHLS = this.hls as any
+
     untypedHLS.log = untypedHLS.warn = () => {
       // empty
     }
 
-    console.log("DESTROY", this.hls)
+
+    this.videoLogger.destroyLogs()
 
     this.hls.destroy()
   }
@@ -260,6 +266,9 @@ class Html5Hlsjs {
   }
 
   private _handleNetworkError (error: any) {
+
+    if (navigator.onLine === false) return
+
     if (this.errorCounts[Hlsjs.ErrorTypes.NETWORK_ERROR] <= this.maxNetworkErrorRecovery) {
       logger.info('trying to recover network error')
 
@@ -285,11 +294,15 @@ class Html5Hlsjs {
       message: `HLS.js error: ${data.type} - fatal: ${data.fatal} - ${data.details}`
     }
 
+    this.videoLogger.log(error.message, {
+      id: VIDEO_HLS_ERROR
+    })
+
     // increment/set error count
     if (this.errorCounts[data.type]) this.errorCounts[data.type] += 1
     else this.errorCounts[data.type] = 1
 
-    if (data.fatal) logger.warn(error.message)
+    if(!data.fatal) logger.warn(error.message)
     else logger.error(error.message, { data })
 
     if (data.type === Hlsjs.ErrorTypes.NETWORK_ERROR) {
@@ -363,6 +376,10 @@ class Html5Hlsjs {
     return result
   }
 
+  public sendLogsCache (videoId: String, serverUrl: String) {
+    this.videoLogger.returnLog(videoId, serverUrl)
+  }
+
   private _onMetaData (_event: any, data: ManifestParsedData) {
     // This could arrive before 'loadedqualitydata' handlers is registered, remember it so we can raise it later
     this.metadata = data
@@ -388,10 +405,19 @@ class Html5Hlsjs {
       this.videoElement.addEventListener('play', this.handlers.play)
     }
 
+
     //@ts-ignore
     this.hlsjsConfig.capLevelController = CapLevelController
+    this.hlsjsConfig.abrController = AbrController as any
+    this.hlsjsConfig.abrBandWidthUpFactor = 0.3
+
+    //if(!data.details.live && data.details.totalduration      )
+
+    this.hlsjsConfig.debug = this.videoLogger
 
     this.hls = new Hlsjs(this.hlsjsConfig)
+
+
 
     //@ts-ignore
     this.player.hls = this.hls;
@@ -414,6 +440,12 @@ class Html5Hlsjs {
 
       this._duration = this.isLive ? Infinity : data.details.totalduration
 
+      this.player.duration(Math.round(this._duration))
+
+      //if(this._duration < 60){
+        //this.player.peertubeResolutions().disableAutoResolution()
+      //}
+
       // Increase network error recovery for lives since they can be broken (server restart, stream interruption etc)
       if (this.isLive) this.maxNetworkErrorRecovery = 300
     })
@@ -425,6 +457,7 @@ class Html5Hlsjs {
     })
 
     this.hls.on(Hlsjs.Events.LEVEL_SWITCHING, (_e, data: LevelSwitchingData) => {
+
       const resolutionId = this.hls.autoLevelEnabled
         ? -1
         : data.level

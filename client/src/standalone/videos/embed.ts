@@ -366,6 +366,13 @@ export class PeerTubeEmbed {
 			this.player.dispose()
 			this.playerHTML.removePlayerElement()
 			this.playerHTML.displayError('This video is not available because the remote instance is not responding.')
+
+			this.api.send({ 
+				method: 'error', 
+				params: {
+					message: 'This video is not available because the remote instance is not responding.'
+				}
+			})
 		})
 
 		//window['videojsPlayer'] = this.player

@@ -7,7 +7,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const version = (Math.random() * 10000).toFixed(0)
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const AddCharsetWebpackPlugin = require("./addcharset");
 
 module.exports = function () {
@@ -51,11 +51,11 @@ module.exports = function () {
 
     output: {
       // path: helpers.root('dist/standalone/videos'),
-      //path: '/Users/aleksandr/dev-server/pocketnet/peertube',
+      path: '/Users/aleksandr/dev-server/pocketnet/peertube',
 
       clean : {},
 
-      path: 'C:\\inetpub\\wwwroot\\pocketnet\\peertube',
+      // path: 'C:\\inetpub\\wwwroot\\pocketnet\\peertube',
 
       filename: process.env.ANALYZE_BUNDLE === 'true'
         ? '[name].bundle.js'
@@ -85,7 +85,7 @@ module.exports = function () {
                 "presets": [
                   "@babel/preset-env"
                 ],
-                "plugins": ["@babel/plugin-transform-spread", "@babel/plugin-transform-classes", "@babel/plugin-proposal-object-rest-spread", "@babel/plugin-transform-async-to-generator", "transform-es2015-constants"]
+                "plugins": ["@babel/plugin-proposal-async-generator-functions", "@babel/plugin-transform-spread", "@babel/plugin-transform-classes", "@babel/plugin-proposal-object-rest-spread", "@babel/plugin-transform-async-to-generator", "transform-es2015-constants"]
               }
             },
             {
@@ -108,7 +108,7 @@ module.exports = function () {
                   ]
                 ],
 
-                plugins : ["@babel/plugin-transform-spread", "@babel/plugin-transform-classes", "@babel/plugin-proposal-object-rest-spread", "@babel/plugin-transform-async-to-generator", "transform-es2015-constants"]
+                plugins : ["@babel/plugin-transform-spread", "@babel/plugin-proposal-async-generator-functions", "@babel/plugin-transform-classes", "@babel/plugin-proposal-object-rest-spread", "@babel/plugin-transform-async-to-generator", "transform-es2015-constants"]
               }
             }
           ]
@@ -165,6 +165,7 @@ module.exports = function () {
     },
 
     plugins: [
+      //new BundleAnalyzerPlugin(),
       new ProvidePlugin({
         process: 'process/browser',
         Buffer: [ 'buffer', 'Buffer' ]

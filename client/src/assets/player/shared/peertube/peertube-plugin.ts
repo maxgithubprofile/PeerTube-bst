@@ -28,7 +28,7 @@ class PeerTubePlugin extends Plugin {
   private readonly startTime: number
 
   private readonly CONSTANTS = {
-    USER_VIEW_VIDEO_INTERVAL: 5000 // Every 5 seconds, notify the user is watching the video
+    USER_VIEW_VIDEO_INTERVAL: 30000 // Every 60 seconds, notify the user is watching the video
   }
 
   //private videoCaptions: VideoJSCaption[]
@@ -135,7 +135,7 @@ class PeerTubePlugin extends Plugin {
   private initializePlayer () {
     if (isMobile()) this.player.addClass('vjs-is-mobile')
 
-    this.initSmoothProgressBar()
+    //this.initSmoothProgressBar()
 
     //this.initCaptions()
 
@@ -149,7 +149,7 @@ class PeerTubePlugin extends Plugin {
     let lastViewEvent: VideoViewEvent
 
     this.player.one('play', () => {
-      this.notifyUserIsWatching(this.startTime, lastViewEvent)
+      this.notifyUserIsWatching(Math.round(this.startTime), lastViewEvent)
     })
 
     this.player.on('seeked', () => {
@@ -159,7 +159,10 @@ class PeerTubePlugin extends Plugin {
       lastViewEvent = 'seek'
     })
 
+   
+
     this.player.one('ended', () => {
+
       const currentTime = Math.round(this.player.duration())
       lastCurrentTime = currentTime
 
@@ -255,42 +258,6 @@ class PeerTubePlugin extends Plugin {
     debugLogger('Set player inactivity to ' + timeout)
   }
 
-  /*private initCaptions () {
-    for (const caption of this.videoCaptions) {
-      this.player.addRemoteTextTrack({
-        kind: 'captions',
-        label: caption.label,
-        language: caption.language,
-        id: caption.language,
-        src: caption.src,
-        default: this.defaultSubtitle === caption.language
-      }, false)
-    }
-
-    this.player.trigger('captionsChanged')
-  }*/
-
-  // Thanks: https://github.com/videojs/video.js/issues/4460#issuecomment-312861657
-  private initSmoothProgressBar () {
-    const SeekBar = videojs.getComponent('SeekBar') as any
-    SeekBar.prototype.getPercent = function getPercent () {
-      // Allows for smooth scrubbing, when player can't keep up.
-      // const time = (this.player_.scrubbing()) ?
-      //   this.player_.getCache().currentTime :
-      //   this.player_.currentTime()
-      const time = this.player_.currentTime()
-      const percent = time / this.player_.duration()
-      return percent >= 1 ? 1 : percent
-    }
-    SeekBar.prototype.handleMouseMove = function handleMouseMove (event: any) {
-      let newTime = this.calculateDistance(event) * this.player_.duration()
-      if (newTime === this.player_.duration()) {
-        newTime = newTime - 0.1
-      }
-      this.player_.currentTime(newTime)
-      this.update()
-    }
-  }
 }
 
 videojs.registerPlugin('peertube', PeerTubePlugin)
