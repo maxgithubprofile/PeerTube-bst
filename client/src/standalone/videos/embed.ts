@@ -533,8 +533,12 @@ export class PeerTubeEmbed {
 
 				const wrapperSize = this.playerHTML.getWrapperSize();
 
-				if (!ctx || !wrapperSize)
+				var playerControl: any = this.playerHTML.getWrapperElement().getElementsByClassName('vjs-control-bar')
+
+				if (!ctx || !wrapperSize || !playerControl || playerControl.length <= 0)
 					return
+
+				playerControl = playerControl[0];
 
 				audioWallpaper.style.width = ((isPip) ? 0 : wrapperSize.height) + 'px';
 				audioWallpaper.style.height = ((isPip) ? 0 : wrapperSize.height) + 'px';
@@ -550,11 +554,19 @@ export class PeerTubeEmbed {
 
 				const isMobileView = (this.playerHTML.getWrapperElement().closest('html.mobileview') != undefined);
 
-				audioVisu.height = (isPip) ? wrapperSize.height : wrapperSize.height;
+				audioVisu.height = wrapperSize.height;
+
 				// If not on mobile, move the visualization on top of the control bar
-				if (!isMobileView)
+				if (!isMobileView && !isPip)
 					audioVisu.height -= 63;
-				audioVisu.width = (isPip) ? wrapperSize.width : wrapperSize.width - audioVisu.height;
+				audioVisu.width = (isPip) ? wrapperSize.width : wrapperSize.width - wrapperSize.height;
+				// Move the control bar
+				if (!isPip) {
+					playerControl.style.width = (wrapperSize.width - wrapperSize.height) + 'px';
+					playerControl.style.marginLeft = wrapperSize.height + 'px';
+					playerControl.style.borderBottomLeftRadius = 0;
+				}
+
 				audioVisu.style.width = audioVisu.width + 'px';
 				audioVisu.style.height = audioVisu.height + 'px';
 				var WIDTH = audioVisu.width;
@@ -587,17 +599,16 @@ export class PeerTubeEmbed {
 					// analyser.getByteFrequencyData(dataArray);
 					ctx.fillStyle = "transparent";
 					ctx.fillRect(0, 0, WIDTH, HEIGHT);
-					const barWidth = (WIDTH / bufferLength) * 2.5;
+					const barWidth = (WIDTH / bufferLength) * 20;
 					let barHeight;
+					let barHeightPourcentage;
 					let x = 0;
+					let maxValue = 280;
 					for (let i = 0; i < bufferLength; i++) {
-						barHeight = dataArray[i];
-						if (HEIGHT > 400)
-							barHeight = barHeight * 3;
-						else if (HEIGHT > 300)
-							barHeight = barHeight * 2;
+						barHeightPourcentage = dataArray[i] / maxValue;
+						barHeight = HEIGHT * barHeightPourcentage;
 						ctx.fillStyle = `rgb(0, 166, 255)`;
-						ctx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
+						ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
 						x += barWidth + 1;
 					}
 					ctx.stroke();
