@@ -54,6 +54,9 @@ export class VideoFetcher {
 		}).then((json) => {
 
 			if (json && Object.keys(json).length != 0) {
+
+        if(!json.aspectRatio || json.aspectRatio <= 0) json.aspectRatio = 1.77
+
 				window.peertubeglobalcache[videoId] = json
 			}
 
@@ -68,6 +71,9 @@ export class VideoFetcher {
 		}).then((json) => {
 
 			if (json && Object.keys(json).length != 0) {
+
+        if(!json.aspectRatio || json.aspectRatio <= 0) json.aspectRatio = 1.77
+
 				window.peertubeglobalcache[videoId] = json
 			}
 

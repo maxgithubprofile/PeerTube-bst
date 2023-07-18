@@ -173,7 +173,7 @@ export class PlayerManagerOptions {
     playNextPlaylistVideo?: () => any
     playPreviousPlaylistVideo?: () => any*/
     onVideoUpdate?: (uuid: string, host : string) => any,
-
+    removeposter? : boolean,
     poster ?: string,
     sources? : Array<any> | null
 
@@ -185,7 +185,8 @@ export class PlayerManagerOptions {
       live,
       serverConfig,
       sources,
-      poster
+      poster,
+      removeposter
     } = options
 
     //const videoCaptions = await this.buildCaptions(captionsResponse, translations)
@@ -228,7 +229,7 @@ export class PlayerManagerOptions {
         peertubeLink: this.peertubeLink,
         //instanceName: serverConfig.instance.name,
 
-        poster: poster ? poster : (video.from ? 'https://' + video.from : video.host) + video.thumbnailPath,
+        poster: removeposter ? '' : (poster ? poster : ((video.from ? 'https://' + video.from : video.host) + video.thumbnailPath)),
         theaterButton: false,
 
         serverUrl: video.host,

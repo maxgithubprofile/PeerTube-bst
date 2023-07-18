@@ -49,6 +49,7 @@ export interface CommonOptions extends CustomizationOptions {
   videoDuration: number
   enableHotkeys: boolean
   inactivityTimeout: number
+
   poster: string
 
   //instanceName: string

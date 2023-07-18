@@ -3399,11 +3399,6 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
-"fsevents@~2.3.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
-
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -4987,10 +4982,10 @@
   "resolved" "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
   "version" "2.2.0"
 
-"p2p-media-loader-core-basyton@^1.0.23":
-  "integrity" "sha512-U+XN3et669iFmFkLUlmDLN1XM4UdmfPMoKgu31RbVmKzPE7hGnCvX25JDZq+j6VUFhoOWnDkdTyC2Gu1zgF2iw=="
-  "resolved" "https://registry.npmjs.org/p2p-media-loader-core-basyton/-/p2p-media-loader-core-basyton-1.0.23.tgz"
-  "version" "1.0.23"
+"p2p-media-loader-core-basyton@^1.0.24":
+  "integrity" "sha512-t48dA1xfkRs9F+iVIpmO0+TWWWqGRSFK3NGGsIVcW8epuh4V9jOz7UB/0glIBcSJYQ+LfnNRo99RUZ4jxvgfzA=="
+  "resolved" "https://registry.npmjs.org/p2p-media-loader-core-basyton/-/p2p-media-loader-core-basyton-1.0.24.tgz"
+  "version" "1.0.24"
   dependencies:
     "bittorrent-tracker" "^9.19.0"
     "debug" "^4.3.4"
@@ -4998,15 +4993,15 @@
     "sha.js" "^2.4.11"
     "simple-peer" "^9.11.1"
 
-"p2p-media-loader-hlsjs-basyton@^1.0.23":
-  "integrity" "sha512-BUx8hAvcEl2N9BRk+crvl293DGlXgCmcu+zDKT9nVM69HdHBC2Hr8E3AeoQ4x7s6f+/8w3SOihpdh9+Tv9VIwg=="
-  "resolved" "https://registry.npmjs.org/p2p-media-loader-hlsjs-basyton/-/p2p-media-loader-hlsjs-basyton-1.0.23.tgz"
-  "version" "1.0.23"
+"p2p-media-loader-hlsjs-basyton@^1.0.25":
+  "integrity" "sha512-qMHUmLNXHoEn4go/85wStxObi4aQwTrIzchW4pGkEi524WuG4iBAwyyoFrWwnbh0Ne28TAMJq3RQRE01mbjgJg=="
+  "resolved" "https://registry.npmjs.org/p2p-media-loader-hlsjs-basyton/-/p2p-media-loader-hlsjs-basyton-1.0.25.tgz"
+  "version" "1.0.25"
   dependencies:
     "debug" "^4.3.4"
     "events" "^3.3.0"
     "m3u8-parser" "^4.7.1"
-    "p2p-media-loader-core-basyton" "^1.0.23"
+    "p2p-media-loader-core-basyton" "^1.0.24"
 
 "package-json-versionify@^1.0.4":
   "integrity" "sha512-mtKKtCeSZMtWcc5hHJS6OlEGP7J9g7WN6vWCCZi2hCXFag/Zmjokh6WFFTQb9TuMnBcZpRjhhMQyOyglPCAahw=="

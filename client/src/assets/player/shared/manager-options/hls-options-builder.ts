@@ -87,14 +87,14 @@ export class HLSOptionsBuilder {
 
         useP2P: this.options.common.p2pEnabled,
         consumeOnly,
-        segmentsStorage : this.options.segmentsStorage,
+        segmentsStorage : this.options.common.isLive ? undefined : this.options.segmentsStorage,
 
         localTransport : this.options.common.localTransport,
 
         ...specificLiveOrVODOptions
       },
       segments: {
-        assetsStorage : this.options.assetsStorage,
+        assetsStorage : this.options.common.isLive ? undefined : this.options.assetsStorage,
         swarmId: this.options.p2pMediaLoader.playlistUrl,
         forwardSegmentCount: specificLiveOrVODOptions.p2pDownloadMaxPriority ?? 20
       }
@@ -147,6 +147,9 @@ export class HLSOptionsBuilder {
     const specificLiveOrVODOptions = this.options.common.isLive
       ? this.getHLSLiveOptions()
       : this.getHLSVODOptions()
+
+
+      console.log('specificLiveOrVODOptions', specificLiveOrVODOptions)
 
     //autoLevelEnabled
 

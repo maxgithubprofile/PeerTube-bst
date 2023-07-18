@@ -197,11 +197,9 @@ export class PlayerHTML {
 
   createARElement(videoInfo: VideoDetails) {
 
-		const videoSizeValue = videoInfo.aspectRatio
+		const videoSizeValue = videoInfo.aspectRatio || 1.78
 
 		const paddingSize: Number = 100 / (2 * videoSizeValue);
-
-
 
 		var aslayer = document.createElement("div");
 		aslayer.classList.add("aspectratio-matte");

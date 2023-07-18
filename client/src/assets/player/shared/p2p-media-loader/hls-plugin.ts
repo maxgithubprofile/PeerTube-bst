@@ -456,6 +456,10 @@ class Html5Hlsjs {
       this.tech.trigger('loadedmetadata')
     })
 
+    this.hls.on(Hlsjs.Events.FRAG_LOADED, (e: any, frag : any) => {
+      console.log('frag', frag)
+    })
+
     this.hls.on(Hlsjs.Events.LEVEL_SWITCHING, (_e, data: LevelSwitchingData) => {
 
       const resolutionId = this.hls.autoLevelEnabled

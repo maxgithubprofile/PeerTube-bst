@@ -271,6 +271,8 @@ class AbrController implements ComponentAPI {
       this.bwEstimator.sample(processingMs, stats.loaded);
 
     stats.bwEstimate = this.bwEstimator.getEstimate();
+
+    console.log('stats.bwEstimate', stats.bwEstimate)
     
     if (frag.bitrateTest) {
       this.bitrateTestDelay = processingMs / 1000;

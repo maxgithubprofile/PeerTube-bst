@@ -37,9 +37,7 @@ function segmentValidatorFactory (segmentsSha256Url: string, isLive: boolean) {
 
     const segments = (await segmentsJSON)
 
-    const segmentValue = segments[filename] || findbyqualityname(segments, filename)
-
-
+    const segmentValue = segments[filename] || (!isLive ? findbyqualityname(segments, filename) : null)
 
     if (!segmentValue && retry > maxRetries) {
       throw new Error(`Unknown segment name ${filename} in segment validator`)

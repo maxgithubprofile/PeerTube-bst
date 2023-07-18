@@ -361,6 +361,9 @@ export class PeerTubeEmbed {
 		}
 
 
+		console.log('parameters', parameters)
+
+
 		const PlayerManager: typeof PeertubePlayerManager = PeertubePlayerManagerModule.PeertubePlayerManager
 		const options = await this.playerManagerOptions.getPlayerOptions({
 			video,
@@ -375,8 +378,8 @@ export class PeerTubeEmbed {
 			//playPreviousPlaylistVideo: () => this.playPreviousPlaylistVideo(),
 
 			live,
-
-			poster: !parameters.localVideo ? null : parameters.localVideo.infos.thumbnail,
+			removeposter : parameters.localVideo || parameters.wautoplay,
+			poster: (!parameters.localVideo || parameters.wautoplay) ? null : parameters.localVideo.infos.thumbnail,
 
 			sources: !parameters.localVideo ? null : [{
 				src:  parameters.localVideo.video.internalURL,
@@ -388,6 +391,7 @@ export class PeerTubeEmbed {
 		if (videoDetails && videoDetails.isAudio == true)
 			options.isAudio = true;
 
+		console.log('options', options)
 
 		this.player = await PlayerManager.initialize(this.playerManagerOptions.getMode(), options, (player: videojs.Player) => {
 			this.player = player
@@ -464,7 +468,7 @@ export class PeerTubeEmbed {
 		this.playerHTML.setARElement(video, this.player.el_)
 
 		// @ts-ignore
-		if (window.cordova) {
+		if (window.cordova && !parameters.wautoplay) {
 			try{
 				// @ts-ignore
 				(this.player.tech_.el_ || this.player.el_).setAttribute('poster', options.common.poster);
