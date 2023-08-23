@@ -186,6 +186,15 @@ export class PeerTubeEmbedApi {
 		}
 	}
 
+	public exitFullScreen(){
+		if (this.embed.player){
+			if (this.embed.player.isFullscreen()){
+				this.embed.player.exitFullscreen()
+			}
+		}
+		
+	}
+
 	public mute() {
 		this.savedVolume = this.getVolume()
 		this.setVolume(0)

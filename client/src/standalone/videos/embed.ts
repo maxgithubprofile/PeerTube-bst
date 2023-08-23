@@ -378,7 +378,8 @@ export class PeerTubeEmbed {
 			//playPreviousPlaylistVideo: () => this.playPreviousPlaylistVideo(),
 
 			live,
-			removeposter : parameters.localVideo || parameters.wautoplay,
+			// @ts-ignore
+			removeposter : (parameters.localVideo || parameters.wautoplay) && !window.cordova,
 			poster: (!parameters.localVideo || parameters.wautoplay) ? null : parameters.localVideo.infos.thumbnail,
 
 			sources: !parameters.localVideo ? null : [{
@@ -468,7 +469,7 @@ export class PeerTubeEmbed {
 		this.playerHTML.setARElement(video, this.player.el_)
 
 		// @ts-ignore
-		if (window.cordova && !parameters.wautoplay) {
+		if (window.cordova) {
 			try{
 				// @ts-ignore
 				(this.player.tech_.el_ || this.player.el_).setAttribute('poster', options.common.poster);

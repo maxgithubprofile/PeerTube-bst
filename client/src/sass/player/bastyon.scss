@@ -6,6 +6,16 @@
     line-height: 3em;
     background: #000;
 
+    .vjs-loading-spinner{
+        opacity: 0!important;
+    }
+    &.vjs-seeking,
+    &.vjs-waiting{
+        .vjs-loading-spinner{
+            opacity: 1!important;
+        }
+    }
+    
 
     &.vjs-fullscreen {
         contain: strict;
