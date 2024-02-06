@@ -89,13 +89,15 @@ export class PeerTubeEmbedApi {
 				if (e && e.toString) {
 					e = e.toString()
 
+					console.warn("E", e)
+
 					if (e && e.indexOf('removed from the document') > -1) {
 						this.destroy()
 						return
 					}
 
 					/* @ts-ignore */
-					if (typeof window.isMobile != 'undefined' && window.isMobile() || window.cordova) return
+					//if (typeof window.isMobile != 'undefined' && window.isMobile() || window.cordova) return
 
 					if (e && e.indexOf('request was interrupted') > -1) {
 						this.mute()
