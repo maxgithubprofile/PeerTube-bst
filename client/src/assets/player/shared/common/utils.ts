@@ -45,6 +45,17 @@ function getRtcConfig () {
 
   return {
     iceServers: [
+      "stun:relay1.expressturn.com:443",
+      "stun:relay2.expressturn.com:443",
+      "stun:relay3.expressturn.com:443",
+      "stun:relay1.expressturn.com:3478",
+      "stun:relay2.expressturn.com:3478",
+      "stun:relay4.expressturn.com:3478",
+      "stun:relay5.expressturn.com:3478",
+      "stun:relay6.expressturn.com:3478",
+      "stun:relay8.expressturn.com:3478",
+      "stun:relay1.expressturn.com:80",
+      "stun:stun.relay.metered.ca:80",
       ...getList1(),
       ...getList2(),
     ]
