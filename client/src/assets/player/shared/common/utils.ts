@@ -44,8 +44,9 @@ function getRtcConfig () {
   const getList2=()=>{const list=["standard.rel"+"ay.met"+"ered.ca:443?trans"+"port=tcp", "standard.rel"+"ay.met"+"ered.ca:443", "standard.rel"+"ay.met"+"ered.ca:80?trans"+"port=tcp", "standard.rel"+"ay.met"+"ered.ca:80",];return list.map(server=>({urls:"turn:"+server,username:"604"+"3b1"+"571"+"1c8"+"1a9"+"40b"+"09b"+"977",credential:"RS3"+"nKg"+"8sY"+"Av0"+"QvcY",}))};
 
   const getStuns = () => {
+
     const list = [
-      "relay1.expressturn.com:443",
+      /*"relay1.expressturn.com:443",
       "relay2.expressturn.com:443",
       "relay3.expressturn.com:443",
       "relay1.expressturn.com:3478",
@@ -54,7 +55,9 @@ function getRtcConfig () {
       "relay5.expressturn.com:3478",
       "relay6.expressturn.com:3478",
       "relay8.expressturn.com:3478",
-      "relay1.expressturn.com:80",
+      "relay1.expressturn.com:80",*/
+      "stun.cloudflare.com:3478",
+      "global.stun.twilio.com:3478",
       "stun.relay.metered.ca:80",
     ];
 
@@ -76,8 +79,8 @@ function getRtcConfig () {
         credential: "q1w2e3r4t5ASD!@#",
       },
       ...getStuns(),
-      ...getList1(),
-      ...getList2(),
+      /*...getList1(),
+      ...getList2(),*/
     ]
   }
 }
