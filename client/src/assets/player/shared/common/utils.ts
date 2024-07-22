@@ -65,6 +65,16 @@ function getRtcConfig () {
 
   return {
     iceServers: [
+      {
+        urls: "stun:turn.pocketnet.app",
+        username: "stunuser",
+        credential: "q1w2e3r4t5ASD!@#",
+      },
+      {
+        urls: "turn:turn.pocketnet.app",
+        username: "stunuser",
+        credential: "q1w2e3r4t5ASD!@#",
+      },
       ...getStuns(),
       ...getList1(),
       ...getList2(),
