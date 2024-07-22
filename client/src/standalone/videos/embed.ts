@@ -143,6 +143,8 @@ export class PeerTubeEmbed {
 
 	private async loadVideoAndBuildPlayer(host: string, uuid: string, parameters: any, clbk : any) {
 		try {
+
+
 			const { videoDetails } = await this.videoFetcher.loadVideoCache(uuid, host)
 
 			/*if(videoDetails.state.id == 7){
@@ -183,7 +185,7 @@ export class PeerTubeEmbed {
 
 		this.initializeApi(aclbk);
 
-		var poster = this.playerHTML.thumbPlayer(videoDetails, true)
+		var poster = this.playerHTML.thumbPlayer(videoDetails, true, parameters.localVideo)
 
 		poster.addEventListener('click', () => {
 
@@ -280,6 +282,7 @@ export class PeerTubeEmbed {
 						this.playerHTML.removeErrorBlock()
 						this.playerHTML.displayError(this.details.state.label, 'critical')
 						return
+					}*/
 
 
 
@@ -349,7 +352,7 @@ export class PeerTubeEmbed {
             : `${videoDetails.isAudio ? "Audio" : "Video"} is being processed`
         }</span>`;
 
-				this.playerHTML.thumbPlayer(videoDetails, false)
+				this.playerHTML.thumbPlayer(videoDetails, false, parameters.localVideo)
 				this.playerHTML.transcodingMessage(transcodingMessage)
 
 				this.initWaiting(host, parameters, clbk)
@@ -359,10 +362,6 @@ export class PeerTubeEmbed {
 
 
 		}
-
-
-		console.log('parameters', parameters)
-
 
 		const PlayerManager: typeof PeertubePlayerManager = PeertubePlayerManagerModule.PeertubePlayerManager
 		const options = await this.playerManagerOptions.getPlayerOptions({
@@ -380,9 +379,9 @@ export class PeerTubeEmbed {
 			live,
 			// @ts-ignore
 			removeposter : (parameters.localVideo || parameters.wautoplay) && !window.cordova,
-			poster: (!parameters.localVideo || parameters.wautoplay) ? null : parameters.localVideo.infos.thumbnail,
+			poster: (!parameters.localVideo || parameters.wautoplay) ? null : (parameters.localVideo.infos.thumbnail || parameters.localVideo.infos.videoDetails.previewPath),
 
-			sources: !parameters.localVideo ? null : [{
+			sources: !parameters.localVideo || parameters.localTransport ? null : [{
 				src:  parameters.localVideo.video.internalURL,
 				type: 'video/mp4',
 				size: parseInt(parameters.localVideo.video.name)
@@ -391,8 +390,6 @@ export class PeerTubeEmbed {
 
 		if (videoDetails && videoDetails.isAudio == true)
 			options.isAudio = true;
-
-		console.log('options', options)
 
 		this.player = await PlayerManager.initialize(this.playerManagerOptions.getMode(), options, (player: videojs.Player) => {
 			this.player = player
@@ -552,7 +549,6 @@ export class PeerTubeEmbed {
 			// Setup events when mouse is clicked over the player visualization and wallpaper
 
 			var togglePlayerPlay = () => {
-				console.log("?", this.player)
 				if (this.player) {
 					if (this.player.paused())
 						this.player.play();
@@ -565,7 +561,6 @@ export class PeerTubeEmbed {
 			// audioWallpaper.onclick = togglePlayerPlay;
 
 			if (!canvasAdded) {
-				console.log("audioVisu", audioVisu)
 				// @ts-ignore
 				this.player.el_.appendChild(audioVisuWrapper);
 				// this.playerHTML.addElementToDOM(audioWallpaper);

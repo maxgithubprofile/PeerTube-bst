@@ -183,8 +183,6 @@ export class PeertubePlayerManager {
       videojsOptionsBuilder.getVideojsOptions(this.alreadyPlayed)
     )*/
 
-    console.log('buildPlayer')
-
     // If video is audio
     if (options && options.isAudio && videojsOptions && videojsOptions.controlBar && videojsOptions.controlBar.children) {
       videojsOptions.controlBar.children['settingsButton'].entries = ['playbackRateMenuButton'];

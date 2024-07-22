@@ -129,8 +129,8 @@ export class PlayerManagerOptions {
       this.startTime = getString(params, 'start')
       this.stopTime = getString(params, 'stop')
 
-      this.assetsStorage = params.assetsStorage
-      this.segmentsStorage = params.segmentsStorage
+      this.assetsStorage = params.assetsStorage || undefined
+      this.segmentsStorage = params.segmentsStorage || undefined
       this.localTransport = params.localTransport
       //this.localVideo = getString(params, 'localvideo', false)
 
@@ -141,7 +141,7 @@ export class PlayerManagerOptions {
 
       this.mode = 'p2p-media-loader'
 
-      if(params.localVideo) this.mode = 'localvideo'
+      if(params.localVideo && !params.localTransport) this.mode = 'localvideo'
 
       /*if (modeParam) {
         if (modeParam === 'p2p-media-loader') this.mode = 'p2p-media-loader'
@@ -256,8 +256,8 @@ export class PlayerManagerOptions {
       mobile : this.mobile,
       ...this.buildP2PMediaLoaderOptions(video),
 
-      assetsStorage : this.assetsStorage,
-      segmentsStorage : this.segmentsStorage
+      assetsStorage : this.assetsStorage || undefined,
+      segmentsStorage : this.segmentsStorage || undefined
 
       //pluginsManager: this.peertubePlugin.getPluginsManager()
     }

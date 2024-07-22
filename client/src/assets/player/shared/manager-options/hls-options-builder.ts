@@ -28,6 +28,8 @@ export class HLSOptionsBuilder {
     const p2pMediaLoaderConfig = this.getP2PMediaLoaderOptions(redundancyUrlManager)
     const loader = new this.p2pMediaLoaderModule.Engine(p2pMediaLoaderConfig).createLoaderClass() as P2PMediaLoader
 
+    console.log('options 5', p2pMediaLoaderConfig)
+
     const p2pMediaLoader: P2PMediaLoaderPluginOptions = {
       redundancyUrlManager,
       type: 'application/x-mpegURL',
@@ -74,6 +76,7 @@ export class HLSOptionsBuilder {
       ? this.getP2PMediaLoaderLiveOptions()
       : this.getP2PMediaLoaderVODOptions()
 
+
     return {
       loader: {
         trackerAnnounce,
@@ -96,7 +99,8 @@ export class HLSOptionsBuilder {
       segments: {
         assetsStorage : this.options.common.isLive ? undefined : this.options.assetsStorage,
         swarmId: this.options.p2pMediaLoader.playlistUrl,
-        forwardSegmentCount: specificLiveOrVODOptions.p2pDownloadMaxPriority ?? 20
+        forwardSegmentCount: specificLiveOrVODOptions.p2pDownloadMaxPriority ?? 20,
+        localTransport : this.options.common.localTransport,
       }
     }
   }
@@ -149,7 +153,6 @@ export class HLSOptionsBuilder {
       : this.getHLSVODOptions()
 
 
-      console.log('specificLiveOrVODOptions', specificLiveOrVODOptions)
 
     //autoLevelEnabled
 

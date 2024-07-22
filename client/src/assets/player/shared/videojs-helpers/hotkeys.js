@@ -31,7 +31,7 @@
         volumeStep: 0.1,
         seekStep: 5,
         enableMute: true,
-        enableVolumeScroll: true,
+        enableVolumeScroll: false,
         enableHoverScroll: false,
         enableFullscreen: true,
         enableNumbers: true,

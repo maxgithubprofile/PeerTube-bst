@@ -4993,10 +4993,10 @@
     "sha.js" "^2.4.11"
     "simple-peer" "^9.11.1"
 
-"p2p-media-loader-hlsjs-basyton@^1.0.25":
-  "integrity" "sha512-qMHUmLNXHoEn4go/85wStxObi4aQwTrIzchW4pGkEi524WuG4iBAwyyoFrWwnbh0Ne28TAMJq3RQRE01mbjgJg=="
-  "resolved" "https://registry.npmjs.org/p2p-media-loader-hlsjs-basyton/-/p2p-media-loader-hlsjs-basyton-1.0.25.tgz"
-  "version" "1.0.25"
+"p2p-media-loader-hlsjs-basyton@^1.0.26":
+  "integrity" "sha512-bsFgIH6bY5ZA6aYbmX2mLVOANf/rqKAsSl/R0hw5ufhs3gYoSvPMA6cyuYYRu/JLPi9Ng7t0fw8pBjlRPbJ3uQ=="
+  "resolved" "https://registry.npmjs.org/p2p-media-loader-hlsjs-basyton/-/p2p-media-loader-hlsjs-basyton-1.0.26.tgz"
+  "version" "1.0.26"
   dependencies:
     "debug" "^4.3.4"
     "events" "^3.3.0"

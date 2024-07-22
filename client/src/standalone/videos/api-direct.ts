@@ -276,7 +276,7 @@ export class PeerTubeEmbedApi {
 					duration: this.embed.player.duration(),
 					playbackState: currentState,
 
-					bandwidthEstimate : hls.bandwidthEstimate
+					bandwidthEstimate : hls ? hls.bandwidthEstimate : 0
 				}
 			})
 		}, 500)

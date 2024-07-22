@@ -290,6 +290,8 @@ class Html5Hlsjs {
   }
 
   private _onError (_event: any, data: ErrorData) {
+    console.error(_event)
+    console.error(data)
     const error: { message: string, code?: number } = {
       message: `HLS.js error: ${data.type} - fatal: ${data.fatal} - ${data.details}`
     }

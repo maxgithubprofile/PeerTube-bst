@@ -152,9 +152,21 @@ export class PlayerHTML {
 
   }
 
-  thumbPlayer(videoInfo: VideoDetails, addplaybutton : Boolean){
+  thumbPlayer(videoInfo: VideoDetails, addplaybutton : Boolean, localVideo : any){
 
-	const url = (videoInfo.from ? 'https://' + videoInfo.from : videoInfo.host) + videoInfo.thumbnailPath
+	var pth = ''
+
+	var thp = videoInfo.thumbnailPath || videoInfo.previewPath
+
+	if(localVideo){
+		thp = localVideo.infos.thumbnail || localVideo.infos.videoDetails.previewPath
+	}
+
+	if (thp && (thp.indexOf('https://') > -1 || thp.indexOf('http://') > -1 || thp.indexOf('file:///') > -1)){
+		pth = thp
+	}
+
+	const url = pth ? pth : ((videoInfo.from ? 'https://' + videoInfo.from : videoInfo.host) + thp)
 
 	var poster = document.createElement("div");
 		poster.className = "vjs-thumb video-js";
