@@ -149,6 +149,8 @@ class PeerTubePlugin extends Plugin {
     let lastCurrentTime = this.startTime
     let lastViewEvent: VideoViewEvent
 
+    console.log('runUserViewing INIT')
+
     this.player.one('play', () => {
       this.notifyUserIsWatching(Math.round(this.startTime), lastViewEvent)
     })
