@@ -162,7 +162,12 @@ export class PlayerHTML {
 		thp = localVideo.infos.thumbnail || localVideo.infos.videoDetails.previewPath
 	}
 
-	if (thp && (thp.indexOf('https://') > -1 || thp.indexOf('http://') > -1 || thp.indexOf('file:///') > -1)){
+	if (thp && (
+		thp.indexOf('https://') > -1 || 
+		thp.indexOf('http://') > -1 || 
+		thp.indexOf('file:///') > -1 || 
+		thp.indexOf('bstn://') > -1)
+	){
 		pth = thp
 	}
 

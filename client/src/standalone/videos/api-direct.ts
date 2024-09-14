@@ -50,6 +50,8 @@ export class PeerTubeEmbedApi {
 
 	public destroy() {
 
+		this.answer({ method: 'ondestroy', params: true })
+
 		this.embed.destroy()
 
 		this.clear()
